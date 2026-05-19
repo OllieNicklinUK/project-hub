@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIVERSE Project Hub</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=Roboto:wght@400;500&display=swap">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --v-cyan:#4FD8F5;--v-blue:#00B3E3;--v-purple:#7B5CF5;
+  --v-bg:#0d0d0f;--v-surface:#141418;--v-surface2:#1c1c22;
+  --v-border:#2a2a35;--v-text:#e8e8f0;--v-muted:#7a7a90;
+}
+html,body{height:100%;background:var(--v-bg);color:var(--v-text);font-family:'Roboto',sans-serif}
+h1,h2,h3,.mono{font-family:'Space Grotesk',sans-serif}
+.hub{display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.topbar{display:flex;align-items:center;gap:16px;padding:12px 20px;border-bottom:1px solid var(--v-border);background:var(--v-surface);flex-shrink:0;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:28px;height:28px;background:linear-gradient(135deg,var(--v-cyan),var(--v-purple));border-radius:50% 50% 50% 0;flex-shrink:0}
+.logo-text{font-size:13px;font-weight:600;letter-spacing:0.15em;color:var(--v-text)}
+.logo-sub{font-size:10px;color:var(--v-muted);letter-spacing:0.08em;margin-top:1px}
+.search-wrap{flex:1;min-width:160px;max-width:320px;position:relative}
+.search-wrap i{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--v-muted);font-size:15px}
+.search-wrap input{width:100%;background:var(--v-surface2);border:1px solid var(--v-border);color:var(--v-text);padding:7px 12px 7px 32px;border-radius:6px;font-size:13px;outline:none}
+.search-wrap input:focus{border-color:var(--v-cyan)}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.tag-btn{padding:4px 10px;border-radius:4px;border:1px solid var(--v-border);background:transparent;color:var(--v-muted);font-size:11px;cursor:pointer;font-family:'Space Grotesk',sans-serif;letter-spacing:0.04em;transition:all 0.15s}
+.tag-btn:hover,.tag-btn.active{background:var(--v-cyan);border-color:var(--v-cyan);color:#0d0d0f;font-weight:600}
+.topbar-actions{display:flex;gap:8px;margin-left:auto;flex-shrink:0}
+.add-btn{padding:6px 14px;background:var(--v-cyan);color:#0d0d0f;border:none;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:background 0.15s}
+.add-btn:hover{background:var(--v-blue)}
+.icon-btn{padding:7px 10px;background:transparent;border:1px solid var(--v-border);color:var(--v-muted);border-radius:6px;cursor:pointer;font-size:14px;display:flex;align-items:center;gap:5px;transition:all 0.15s;font-family:'Space Grotesk',sans-serif;font-size:12px}
+.icon-btn:hover{border-color:var(--v-cyan);color:var(--v-cyan)}
+.main{display:flex;flex:1;overflow:hidden}
+.sidebar{width:300px;flex-shrink:0;border-right:1px solid var(--v-border);overflow-y:auto;background:var(--v-surface)}
+.project-card{padding:14px 16px;border-bottom:1px solid var(--v-border);cursor:pointer;transition:background 0.12s;border-left:2px solid transparent}
+.project-card:hover{background:var(--v-surface2)}
+.project-card.active{background:var(--v-surface2);border-left-color:var(--v-cyan)}
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px}
+.card-title{font-size:13px;font-weight:500;font-family:'Space Grotesk',sans-serif;color:var(--v-text);line-height:1.3}
+.status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.s-live{background:#2dcc70}.s-wip{background:var(--v-cyan)}.s-paused{background:var(--v-muted)}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:5px}
+.tag{padding:2px 7px;border-radius:3px;font-size:10px;font-weight:500;font-family:'Space Grotesk',sans-serif;letter-spacing:0.03em}
+.t-viverse{background:#00B3E322;color:var(--v-cyan);border:1px solid #00B3E344}
+.t-personal{background:#7B5CF522;color:#a98bff;border:1px solid #7B5CF544}
+.t-music{background:#e91e8c22;color:#f06bbd;border:1px solid #e91e8c44}
+.t-threejs{background:#2dcc7022;color:#4feaa0;border:1px solid #2dcc7044}
+.t-playcanvas{background:#ff6b3522;color:#ff9a70;border:1px solid #ff6b3544}
+.t-ai{background:#ffd70022;color:#ffd700;border:1px solid #ffd70044}
+.card-desc{font-size:11px;color:var(--v-muted);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.detail-pane{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.detail-top{padding:16px 20px;border-bottom:1px solid var(--v-border);background:var(--v-surface);flex-shrink:0}
+.detail-title-row{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.detail-title{font-size:18px;font-weight:600;font-family:'Space Grotesk',sans-serif}
+.detail-actions{display:flex;gap:8px;margin-left:auto;flex-shrink:0;flex-wrap:wrap}
+.action-btn{padding:6px 12px;border-radius:6px;border:1px solid var(--v-border);background:transparent;color:var(--v-text);font-size:12px;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:'Space Grotesk',sans-serif;transition:all 0.12s}
+.action-btn:hover{border-color:var(--v-cyan);color:var(--v-cyan)}
+.action-btn.primary{background:var(--v-cyan);color:#0d0d0f;border-color:var(--v-cyan)}
+.action-btn.primary:hover{background:var(--v-blue);border-color:var(--v-blue)}
+.action-btn.danger{color:var(--v-muted);border-color:#e91e8c44}
+.action-btn.danger:hover{color:#f06bbd;border-color:#f06bbd}
+.detail-meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.meta-chip{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--v-muted)}
+.preview-area{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.iframe-wrap{flex:1;background:#000;position:relative;overflow:hidden}
+iframe{width:100%;height:100%;border:none;display:block}
+.iframe-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:var(--v-muted)}
+.iframe-placeholder i{font-size:40px;color:var(--v-border)}
+.iframe-placeholder p{font-size:13px}
+.load-preview-btn{padding:8px 18px;background:transparent;border:1px solid var(--v-cyan);color:var(--v-cyan);border-radius:6px;cursor:pointer;font-size:13px;font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;gap:6px;transition:all 0.15s}
+.load-preview-btn:hover{background:var(--v-cyan);color:#0d0d0f}
+.notes-panel{padding:14px 20px;border-top:1px solid var(--v-border);background:var(--v-surface);flex-shrink:0;display:flex;flex-direction:column;gap:8px}
+.notes-label{font-size:11px;font-weight:500;color:var(--v-muted);font-family:'Space Grotesk',sans-serif;letter-spacing:0.06em;text-transform:uppercase;display:flex;align-items:center;gap:5px}
+.notes-input{background:var(--v-surface2);border:1px solid var(--v-border);color:var(--v-text);padding:8px 12px;border-radius:6px;font-size:12px;font-family:'Roboto',sans-serif;resize:vertical;min-height:70px;max-height:160px;outline:none;line-height:1.5;width:100%}
+.notes-input:focus{border-color:var(--v-cyan)}
+.notes-footer{display:flex;justify-content:flex-end}
+.save-note-btn{padding:5px 12px;background:transparent;border:1px solid var(--v-cyan);color:var(--v-cyan);border-radius:5px;cursor:pointer;font-size:11px;font-family:'Space Grotesk',sans-serif;transition:all 0.15s}
+.save-note-btn:hover{background:var(--v-cyan);color:#0d0d0f}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.75);display:none;align-items:center;justify-content:center;z-index:999}
+.modal-bg.open{display:flex}
+.modal{background:var(--v-surface);border:1px solid var(--v-border);border-radius:10px;padding:24px;width:500px;max-width:95vw;max-height:90vh;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.modal h3{font-size:16px;font-weight:600;font-family:'Space Grotesk',sans-serif;border-bottom:1px solid var(--v-border);padding-bottom:12px}
+.form-row{display:flex;flex-direction:column;gap:5px}
+.form-row label{font-size:11px;color:var(--v-muted);font-family:'Space Grotesk',sans-serif;letter-spacing:0.05em;text-transform:uppercase}
+.form-row input,.form-row select,.form-row textarea{background:var(--v-surface2);border:1px solid var(--v-border);color:var(--v-text);padding:8px 12px;border-radius:6px;font-size:13px;font-family:'Roboto',sans-serif;outline:none;width:100%;transition:border-color 0.15s}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--v-cyan)}
+.form-row select option{background:var(--v-surface2);color:var(--v-text)}
+.form-row textarea{resize:vertical;min-height:70px}
+.form-tags{display:flex;gap:6px;flex-wrap:wrap}
+.form-tag-toggle{padding:4px 10px;border-radius:4px;border:1px solid var(--v-border);background:transparent;color:var(--v-muted);font-size:11px;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:all 0.12s}
+.form-tag-toggle.on{border-color:var(--v-cyan);color:var(--v-cyan);background:#4FD8F515}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;padding-top:4px;border-top:1px solid var(--v-border)}
+.modal-cancel{padding:8px 16px;background:transparent;border:1px solid var(--v-border);color:var(--v-muted);border-radius:6px;cursor:pointer;font-size:13px;font-family:'Space Grotesk',sans-serif;transition:all 0.15s}
+.modal-cancel:hover{border-color:var(--v-muted);color:var(--v-text)}
+.modal-save{padding:8px 18px;background:var(--v-cyan);color:#0d0d0f;border:none;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600;font-family:'Space Grotesk',sans-serif;transition:background 0.15s}
+.modal-save:hover{background:var(--v-blue)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--v-surface2);border:1px solid var(--v-cyan);color:var(--v-cyan);padding:10px 18px;border-radius:6px;font-size:12px;font-family:'Space Grotesk',sans-serif;z-index:9999;opacity:0;transition:opacity 0.2s;pointer-events:none}
+.toast.show{opacity:1}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:10px;color:var(--v-muted);padding:40px;text-align:center}
+.empty-state i{font-size:36px;color:var(--v-border)}
+.empty-state p{font-size:13px}
+.no-url-msg{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;gap:10px;color:var(--v-muted)}
+.no-url-msg i{font-size:32px;color:var(--v-border)}
+.no-url-msg p{font-size:13px}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--v-border);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:#3a3a50}
+.import-note{font-size:11px;color:var(--v-muted);text-align:center;padding:8px 0 0}
+</style>
+</head>
+<body>
+<div class="hub">
+  <div class="topbar">
+    <div class="logo">
+      <div class="logo-mark"></div>
+      <div>
+        <div class="logo-text">VIVERSE</div>
+        <div class="logo-sub">PROJECT HUB</div>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <i class="ti ti-search" aria-hidden="true"></i>
+      <input type="text" id="searchInput" placeholder="Search projects...">
+    </div>
+    <div class="filters" id="filterBar"></div>
+    <div class="topbar-actions">
+      <button class="add-btn" onclick="openModal()"><i class="ti ti-plus" aria-hidden="true"></i> New Project</button>
+      <label class="icon-btn" title="Import JSON" style="cursor:pointer">
+        <i class="ti ti-upload" aria-hidden="true"></i> Import
+        <input type="file" id="importInput" accept=".json" style="display:none" onchange="importJSON(event)">
+      </label>
+      <button class="icon-btn" onclick="exportJSON()" title="Export JSON"><i class="ti ti-download" aria-hidden="true"></i> Export</button>
+    </div>
+  </div>
+  <div class="main">
+    <div class="sidebar" id="sidebar"></div>
+    <div class="detail-pane" id="detailPane">
+      <div class="empty-state">
+        <i class="ti ti-layout-grid" aria-hidden="true"></i>
+        <p>Select a project to view details</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal-bg" id="modalBg" onclick="handleModalBgClick(event)">
+  <div class="modal">
+    <h3 id="modalTitle">Add project</h3>
+    <div class="form-row"><label>Title</label><input id="f-title" placeholder="Project name"></div>
+    <div class="form-row"><label>Description</label><textarea id="f-desc" placeholder="Brief description..."></textarea></div>
+    <div class="form-row"><label>Live URL</label><input id="f-url" placeholder="https://..."></div>
+    <div class="form-row"><label>GitHub URL</label><input id="f-github" placeholder="https://github.com/..."></div>
+    <div class="form-row">
+      <label>Status</label>
+      <select id="f-status">
+        <option value="live">Live</option>
+        <option value="wip">In Progress</option>
+        <option value="paused">Paused</option>
+      </select>
+    </div>
+    <div class="form-row"><label>Tags</label><div class="form-tags" id="formTags"></div></div>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+      <button class="modal-save" onclick="saveProject()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const ALL_TAGS = ['VIVERSE','Personal','Music','Three.js','PlayCanvas','AI','WebXR','Python'];
+const TAG_CLASS = {
+  VIVERSE:'t-viverse',Personal:'t-personal',Music:'t-music',
+  'Three.js':'t-threejs',PlayCanvas:'t-playcanvas',AI:'t-ai',
+  WebXR:'t-viverse',Python:'t-threejs'
+};
+
+let projects = [
+  {id:1,title:'VIVERSE World Explorer',desc:'Browser-based photorealistic 3D location explorer with Google Photorealistic 3D Tiles',url:'https://viverse-on.github.io',github:'https://github.com/viverse-on',status:'wip',tags:['VIVERSE','Three.js'],notes:'Vite + TS monorepo. Nominatim geocoding. Cinematic intros working. Mobile controls need polish.'},
+  {id:2,title:'Delirium 88',desc:'Solo-built cyberpunk adventure game — reached competition finals',url:'',github:'https://github.com/viverse-on',status:'live',tags:['PlayCanvas','Personal'],notes:'Inventory, puzzle doors, enemy AI, cutscenes all done. VR/VIVERSE integration complete.'},
+  {id:3,title:'ACID-303 Editor',desc:'Standalone HTML TB-303/TD-3 acid pattern editor with Web MIDI/SysEx',url:'',github:'https://github.com/viverse-on',status:'live',tags:['Music','Personal'],notes:'Full built-in 303 emulator. SysEx write to hardware TD-3 working great.'},
+  {id:4,title:'Hand Tracking Suite',desc:'Hand Synth, TETRAVOID, VOIDRUNNER, DISC DUEL — deployed to VIVERSE via CLI',url:'',github:'https://github.com/viverse-on',status:'live',tags:['VIVERSE','WebXR'],notes:'All 4 apps deployed. Hand Synth is the crowd favourite at demos.'},
+  {id:5,title:'Lala Library Pipeline',desc:'AI-powered children\'s animation pipeline using Wan2GP and Kling AI',url:'',github:'https://github.com/viverse-on',status:'wip',tags:['AI','Personal'],notes:'Very Hungry Caterpillar + Moon for Me done. Polar Bear in progress. Custom storyboard HTML tool built with Claude API.'},
+  {id:6,title:'VOID Synthesizer VST',desc:'VST synth with 46-preset library across Bass, Stab, Pad, Pluck, Lead categories',url:'',github:'https://github.com/viverse-on',status:'wip',tags:['Music','Personal'],notes:'Envelope builder + filter options next. Settings persistence TBD. Web version planned for site.'},
+];
+
+let nextId = 20;
+let selectedId = null;
+let activeFilter = 'All';
+let editingId = null;
+let formTagsActive = [];
+
+function allTags() {
+  const t = new Set(['All']);
+  projects.forEach(p => p.tags.forEach(x => t.add(x)));
+  return [...t];
+}
+
+function filteredProjects() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  return projects.filter(p => {
+    const matchTag = activeFilter === 'All' || p.tags.includes(activeFilter);
+    const matchQ = !q || p.title.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q) || (p.notes || '').toLowerCase().includes(q);
+    return matchTag && matchQ;
+  });
+}
+
+function renderFilters() {
+  const bar = document.getElementById('filterBar');
+  bar.innerHTML = '';
+  allTags().forEach(t => {
+    const b = document.createElement('button');
+    b.className = 'tag-btn' + (t === activeFilter ? ' active' : '');
+    b.textContent = t;
+    b.onclick = () => { activeFilter = t; renderFilters(); renderSidebar(); };
+    bar.appendChild(b);
+  });
+}
+
+function renderSidebar() {
+  const fp = filteredProjects();
+  const sb = document.getElementById('sidebar');
+  if (!fp.length) {
+    sb.innerHTML = '<div class="empty-state" style="min-height:200px"><i class="ti ti-ghost-2" aria-hidden="true"></i><p>No projects found</p></div>';
+    return;
+  }
+  sb.innerHTML = fp.map(p => `
+    <div class="project-card${p.id === selectedId ? ' active' : ''}" onclick="selectProject(${p.id})">
+      <div class="card-header">
+        <div class="card-title">${esc(p.title)}</div>
+        <div class="status-dot s-${p.status}" title="${statusLabel(p.status)}"></div>
+      </div>
+      <div class="card-tags">${p.tags.map(t => `<span class="tag ${TAG_CLASS[t] || 't-viverse'}">${esc(t)}</span>`).join('')}</div>
+      <div class="card-desc">${esc(p.desc)}</div>
+    </div>`).join('');
+}
+
+function statusLabel(s) { return {live:'Live',wip:'In Progress',paused:'Paused'}[s] || s; }
+
+function esc(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function selectProject(id) {
+  selectedId = id;
+  renderSidebar();
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+  const pane = document.getElementById('detailPane');
+  pane.innerHTML = `
+    <div class="detail-top">
+      <div class="detail-title-row">
+        <div class="status-dot s-${p.status}" style="width:9px;height:9px;margin-top:0;flex-shrink:0"></div>
+        <div class="detail-title">${esc(p.title)}</div>
+        <div class="detail-actions">
+          ${p.url ? `<button class="action-btn primary" onclick="loadIframe(${p.id})"><i class="ti ti-player-play" aria-hidden="true"></i> Preview</button>` : ''}
+          ${p.url ? `<button class="action-btn" onclick="window.open('${esc(p.url)}','_blank')"><i class="ti ti-external-link" aria-hidden="true"></i> Open</button>` : ''}
+          ${p.github ? `<button class="action-btn" onclick="window.open('${esc(p.github)}','_blank')"><i class="ti ti-brand-github" aria-hidden="true"></i> GitHub</button>` : ''}
+          <button class="action-btn" onclick="openModal(${p.id})"><i class="ti ti-edit" aria-hidden="true"></i> Edit</button>
+          <button class="action-btn danger" onclick="deleteProject(${p.id})"><i class="ti ti-trash" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="detail-meta">
+        <div class="meta-chip"><i class="ti ti-circle-dot" aria-hidden="true"></i>&nbsp;${statusLabel(p.status)}</div>
+        <div class="meta-chip">${p.tags.map(t => `<span class="tag ${TAG_CLASS[t] || 't-viverse'}">${esc(t)}</span>`).join(' ')}</div>
+      </div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;overflow:hidden">
+      ${p.url
+        ? `<div class="iframe-wrap" id="iframeWrap">
+             <div class="iframe-placeholder" id="iframePlaceholder">
+               <i class="ti ti-device-desktop" aria-hidden="true"></i>
+               <p>${esc(p.title)}</p>
+               <button class="load-preview-btn" onclick="loadIframe(${p.id})"><i class="ti ti-player-play" aria-hidden="true"></i>&nbsp;Load preview</button>
+             </div>
+           </div>`
+        : `<div class="iframe-wrap">
+             <div class="no-url-msg">
+               <i class="ti ti-link-off" aria-hidden="true"></i>
+               <p>No live URL — add one to enable preview</p>
+             </div>
+           </div>`
+      }
+    </div>
+    <div class="notes-panel">
+      <div class="notes-label"><i class="ti ti-notes" aria-hidden="true"></i>&nbsp;Notes</div>
+      <textarea class="notes-input" id="notesInput" placeholder="Add notes, links, context...">${esc(p.notes || '')}</textarea>
+      <div class="notes-footer"><button class="save-note-btn" onclick="saveNotes(${p.id})">Save notes</button></div>
+    </div>`;
+}
+
+function loadIframe(id) {
+  const p = projects.find(x => x.id === id);
+  if (!p || !p.url) return;
+  const wrap = document.getElementById('iframeWrap');
+  if (!wrap) return;
+  wrap.innerHTML = `<iframe src="${esc(p.url)}" title="${esc(p.title)}" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>`;
+}
+
+function saveNotes(id) {
+  const p = projects.find(x => x.id === id);
+  if (!p) return;
+  p.notes = document.getElementById('notesInput').value;
+  showToast('Notes saved');
+}
+
+function deleteProject(id) {
+  if (!confirm('Delete this project?')) return;
+  projects = projects.filter(x => x.id !== id);
+  if (selectedId === id) {
+    selectedId = null;
+    document.getElementById('detailPane').innerHTML = '<div class="empty-state"><i class="ti ti-layout-grid" aria-hidden="true"></i><p>Select a project to view details</p></div>';
+  }
+  renderFilters();
+  renderSidebar();
+  showToast('Project removed');
+}
+
+function openModal(id) {
+  editingId = id || null;
+  formTagsActive = [];
+  document.getElementById('modalTitle').textContent = id ? 'Edit project' : 'Add project';
+  if (id) {
+    const p = projects.find(x => x.id === id);
+    document.getElementById('f-title').value = p.title;
+    document.getElementById('f-desc').value = p.desc;
+    document.getElementById('f-url').value = p.url || '';
+    document.getElementById('f-github').value = p.github || '';
+    document.getElementById('f-status').value = p.status;
+    formTagsActive = [...p.tags];
+  } else {
+    document.getElementById('f-title').value = '';
+    document.getElementById('f-desc').value = '';
+    document.getElementById('f-url').value = '';
+    document.getElementById('f-github').value = '';
+    document.getElementById('f-status').value = 'wip';
+  }
+  renderFormTags();
+  document.getElementById('modalBg').classList.add('open');
+  setTimeout(() => document.getElementById('f-title').focus(), 50);
+}
+
+function closeModal() { document.getElementById('modalBg').classList.remove('open'); }
+
+function handleModalBgClick(e) { if (e.target === e.currentTarget) closeModal(); }
+
+function renderFormTags() {
+  const wrap = document.getElementById('formTags');
+  wrap.innerHTML = ALL_TAGS.map(t =>
+    `<button type="button" class="form-tag-toggle${formTagsActive.includes(t) ? ' on' : ''}" onclick="toggleFormTag('${t}')">${t}</button>`
+  ).join('');
+}
+
+function toggleFormTag(t) {
+  if (formTagsActive.includes(t)) formTagsActive = formTagsActive.filter(x => x !== t);
+  else formTagsActive.push(t);
+  renderFormTags();
+}
+
+function saveProject() {
+  const title = document.getElementById('f-title').value.trim();
+  if (!title) { alert('Title required'); return; }
+  const data = {
+    title,
+    desc: document.getElementById('f-desc').value.trim(),
+    url: document.getElementById('f-url').value.trim(),
+    github: document.getElementById('f-github').value.trim(),
+    status: document.getElementById('f-status').value,
+    tags: [...formTagsActive],
+  };
+  if (editingId) {
+    const p = projects.find(x => x.id === editingId);
+    data.notes = p.notes || '';
+    Object.assign(p, data);
+    if (selectedId === editingId) selectProject(editingId);
+  } else {
+    data.id = nextId++;
+    data.notes = '';
+    projects.push(data);
+  }
+  closeModal();
+  renderFilters();
+  renderSidebar();
+  showToast(editingId ? 'Project updated' : 'Project added');
+}
+
+function exportJSON() {
+  const blob = new Blob([JSON.stringify(projects, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'viverse-projects.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast('viverse-projects.json downloaded');
+}
+
+function importJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (!Array.isArray(data)) throw new Error('Not an array');
+      projects = data;
+      nextId = Math.max(...data.map(p => p.id || 0), nextId) + 1;
+      selectedId = null;
+      activeFilter = 'All';
+      document.getElementById('detailPane').innerHTML = '<div class="empty-state"><i class="ti ti-layout-grid" aria-hidden="true"></i><p>Select a project to view details</p></div>';
+      renderFilters();
+      renderSidebar();
+      showToast(`Loaded ${data.length} projects`);
+    } catch(err) {
+      alert('Invalid JSON file');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+document.getElementById('searchInput').addEventListener('input', () => renderSidebar());
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+renderFilters();
+renderSidebar();
+</script>
+</body>
+</html>
