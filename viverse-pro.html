@@ -185,7 +185,37 @@ body::after{
 .marquee-track span em{font-style:normal;color:var(--v-cyan)}
 @keyframes scrollX{to{transform:translateX(-50%)}}
 
-/* ── SECTION SCAFFOLD ── */
+/* ── LIGHT NEUTRAL SECTIONS ──
+   Re-scopes the theme variables; components resolve them locally. */
+section.light{
+  background:#EFF2F7;
+  border-top:1px solid rgba(18,22,33,.08);
+  border-bottom:1px solid rgba(18,22,33,.08);
+  color:var(--text);
+  --text:#141824;
+  --muted:#535D70;
+  --muted-2:#7E8798;
+  --line:rgba(18,22,33,.1);
+  --line-bright:rgba(0,128,200,.4);
+  --bg-2:#FFFFFF;
+  --bg-3:#F6F9FD;
+  --v-cyan:#0080C8;
+  --grad:linear-gradient(120deg,#00A6DE 0%,#0071C8 45%,#6A3FD0 100%);
+}
+section.light .btn-fill,section.light .plan-badge{color:#fff}
+section.light .btn-ghost{border-color:rgba(18,22,33,.28)}
+section.light .btn-ghost:hover{border-color:#0071C8;color:#0071C8}
+section.light .mini{background:#0E0E15;border-color:rgba(18,22,33,.22)}
+section.light .mini:hover{border-color:rgba(0,128,200,.5)}
+section.light .mini .mini-label{color:#8B93A7}
+section.light .step .s-num{
+  background:linear-gradient(180deg,rgba(0,113,200,.68),rgba(0,113,200,.07));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+section.light .pillar,section.light .step,section.light .format,section.light .plan,section.light .stat,section.light .extra{
+  box-shadow:0 10px 30px -18px rgba(18,22,33,.18);
+}
+
 section{position:relative}
 .wrap{max-width:1400px;margin:0 auto;padding:clamp(90px,11vw,160px) clamp(20px,4vw,48px)}
 .sec-head{margin-bottom:clamp(48px,6vw,80px);display:flex;flex-direction:column;gap:22px;max-width:900px}
@@ -541,7 +571,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2)}
 </div>
 
 <!-- ═══════════ PILLARS ═══════════ -->
-<section id="why">
+<section id="why" class="light">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-tag"><i>01</i> Why teams choose Pro</span>
@@ -565,7 +595,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2)}
 </section>
 
 <!-- ═══════════ PROBLEM ═══════════ -->
-<section style="background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+<section class="light">
   <div class="wrap">
     <div class="problem-grid">
       <div class="sec-head rv" style="margin-bottom:0">
@@ -616,7 +646,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2)}
 </section>
 
 <!-- ═══════════ FORMATS ═══════════ -->
-<section id="formats" style="background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+<section id="formats" class="light">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-tag"><i>04</i> Formats</span>
@@ -719,7 +749,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2)}
 </section>
 
 <!-- ═══════════ HOW IT WORKS ═══════════ -->
-<section id="how">
+<section id="how" class="light">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-tag"><i>07</i> How it works</span>
@@ -785,7 +815,7 @@ footer{border-top:1px solid var(--line);background:var(--bg-2)}
 </section>
 
 <!-- ═══════════ PRICING ═══════════ -->
-<section id="pricing">
+<section id="pricing" class="light">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-tag"><i>09</i> Pricing</span>
