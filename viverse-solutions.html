@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIVERSE Solutions | Interactive 3D for business</title>
+<meta name="description" content="Interactive 3D for your website, private 3D spaces for your team. Powered by HTC streaming technology — live in your browser, nothing to install.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════
+   VIVERSE SOLUTIONS OVERVIEW — v1
+   Copy source: VIVERSE Site Copy v1 (July 2026), Page 1.
+   Light-first sibling of viverse-pro.html: the page flows
+   as a journey, alternating light neutrals, blur-gradient
+   "glow" moments and dark product stages.
+   ══════════════════════════════════════════════════ */
+:root{
+  --v-blue:#009DE7;
+  --v-cyan:#0080C8;
+  --v-cyan-bright:#4FD8F5;
+  --v-pink:#E1547F;
+  --v-purple:#7B4FD8;
+  --text:#141824;
+  --muted:#535D70;
+  --muted-2:#7E8798;
+  --line:rgba(18,22,33,.1);
+  --line-bright:rgba(0,128,200,.4);
+  --bg:#F2F4F9;
+  --bg-soft:#EFF2F7;
+  --card:#FFFFFF;
+  --card-2:#F6F9FD;
+  --grad:linear-gradient(120deg,#00A6DE 0%,#0071C8 45%,#6A3FD0 100%);
+  --grad-bright:linear-gradient(120deg,#4FD8F5 0%,#009DE7 40%,#7B4FD8 100%);
+  --font:'Roboto',sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+::selection{background:#009DE7;color:#fff}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--font);font-size:16px;line-height:1.6;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-weight:700;line-height:1.05;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+
+/* grain */
+body::after{
+  content:"";position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--grad);z-index:10000}
+
+/* ── DARK SECTION RE-SCOPE ── */
+.dark-sec{
+  background:#0A0A10;
+  color:#F1F4FA;
+  --text:#F1F4FA;
+  --muted:#8B93A7;
+  --muted-2:#5C6478;
+  --line:rgba(255,255,255,.08);
+  --line-bright:rgba(79,216,245,.25);
+  --card:#14141D;
+  --card-2:#181822;
+  --v-cyan:#4FD8F5;
+  --grad:var(--grad-bright);
+}
+
+/* ── GLOW (blur gradient) SECTIONS ── */
+.glow{position:relative;overflow:hidden}
+.glow>.wrap{position:relative;z-index:2}
+.orb{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none;animation:drift 16s ease-in-out infinite alternate}
+.orb-cyan{background:rgba(79,216,245,.5)}
+.orb-blue{background:rgba(0,157,231,.42)}
+.orb-purple{background:rgba(123,79,216,.38)}
+.orb-pink{background:rgba(225,84,127,.3)}
+@keyframes drift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(46px,30px,0) scale(1.07)}}
+
+/* ── NAV (dark chrome, consistent with the Pro page) ── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(20px,4vw,48px);
+  background:rgba(10,10,16,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.nav-logo{display:flex;align-items:baseline;gap:10px}
+.nav-logo .word{font-weight:700;font-size:15px;letter-spacing:.18em;background:var(--grad-bright);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nav-logo .tier{font-size:10px;font-weight:500;letter-spacing:.22em;color:#8B93A7;border:1px solid rgba(255,255,255,.14);border-radius:3px;padding:2px 7px}
+.nav-links{display:flex;gap:30px;list-style:none;align-items:center}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#8B93A7;transition:color .25s}
+.nav-links a:hover{color:#4FD8F5}
+.nav-links a.btn-fill,.nav-links a.btn-fill:hover{color:#fff}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;
+  font-weight:500;font-size:14px;letter-spacing:.02em;
+  padding:14px 30px;border-radius:100px;position:relative;overflow:hidden;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease);will-change:transform;
+}
+.btn-fill{background:var(--grad);color:#fff}
+.btn-fill:hover{transform:translateY(-2px);box-shadow:0 12px 40px -8px rgba(0,113,200,.5)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(18,22,33,.28)}
+.btn-ghost:hover{border-color:#0071C8;color:#0071C8;transform:translateY(-2px)}
+.dark-sec .btn-ghost{border-color:rgba(255,255,255,.24);color:var(--text)}
+.dark-sec .btn-ghost:hover{border-color:#4FD8F5;color:#4FD8F5}
+.btn-sm{padding:9px 20px;font-size:12px}
+.btn .arr{transition:transform .3s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+
+/* ── SCAFFOLD ── */
+section{position:relative}
+.wrap{max-width:1400px;margin:0 auto;padding:clamp(80px,10vw,140px) clamp(20px,4vw,48px)}
+.sec-head{margin-bottom:clamp(44px,5.5vw,72px);display:flex;flex-direction:column;gap:22px;max-width:940px}
+.sec-tag{
+  font-size:11px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:12px;
+}
+.sec-tag i{font-style:normal;color:var(--v-cyan)}
+.sec-tag::after{content:"";flex:0 0 40px;height:1px;background:var(--line-bright)}
+h2.sec-title{font-size:clamp(32px,4.6vw,64px);letter-spacing:-.03em}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sec-lead{color:var(--muted);font-size:clamp(16px,1.35vw,19px);max-width:64ch}
+.sec-lead strong,.sec-lead em{color:var(--text);font-style:normal;font-weight:500}
+
+/* journey connector between sections */
+.jline{display:flex;flex-direction:column;align-items:center;gap:0;height:76px;position:relative;z-index:5}
+.jline::before{content:"";width:1px;flex:1;background:linear-gradient(180deg,transparent,rgba(0,128,200,.5))}
+.jline::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--v-blue);box-shadow:0 0 0 5px rgba(0,157,231,.15);animation:jpulse 2s ease-in-out infinite}
+@keyframes jpulse{0%,100%{box-shadow:0 0 0 4px rgba(0,157,231,.15)}50%{box-shadow:0 0 0 9px rgba(0,157,231,.05)}}
+.dark-sec .jline::before{background:linear-gradient(180deg,transparent,rgba(79,216,245,.5))}
+
+/* reveal on scroll */
+.rv{opacity:0;transform:translateY(36px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}.rv-d4{transition-delay:.32s}
+
+/* ── HERO ── */
+.hero{padding-top:64px}
+.hero .wrap{padding-top:clamp(80px,10vw,130px);padding-bottom:clamp(56px,7vw,90px)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:500;letter-spacing:.26em;text-transform:uppercase;color:var(--v-cyan);
+  margin-bottom:28px;
+}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--v-cyan)}
+.hero h1{
+  font-size:clamp(42px,7vw,104px);font-weight:900;letter-spacing:-.035em;line-height:.98;
+  max-width:14ch;
+}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:block;transform:translateY(110%);animation:riseUp 1s var(--ease) forwards}
+.hero h1 .line:nth-child(2) span{animation-delay:.1s}
+.hero h1 .line:nth-child(3) span{animation-delay:.2s}
+@keyframes riseUp{to{transform:translateY(0)}}
+.hero-sub{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-end;justify-content:space-between;margin-top:40px}
+.hero-lead{max-width:54ch;font-size:clamp(16px,1.4vw,19px);color:var(--muted);opacity:0;animation:fadeUp .9s var(--ease) .45s forwards}
+.hero-lead strong{color:var(--text);font-weight:500}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp .9s var(--ease) .6s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* ── LIVE STAGE (dark) ── */
+.stage-sec .wrap{padding-top:clamp(64px,8vw,100px);padding-bottom:clamp(64px,8vw,100px)}
+.stage{
+  position:relative;border:1px solid rgba(255,255,255,.1);border-radius:24px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(24,24,34,.8),rgba(10,10,16,.4));
+}
+.stage canvas{display:block;width:100%;height:clamp(360px,52vh,560px);cursor:grab;touch-action:pan-y}
+.stage canvas:active{cursor:grabbing}
+.stage-chrome{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:16px 22px;pointer-events:none}
+.stage-chrome .dots{display:flex;gap:7px}
+.stage-chrome .dots i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.14)}
+.stage-chrome .url{font-size:11px;font-weight:500;color:#5C6478;letter-spacing:.05em}
+.live-pill{
+  position:absolute;top:14px;right:18px;display:flex;align-items:center;gap:8px;
+  font-size:10px;font-weight:500;letter-spacing:.2em;color:#3DD68C;
+  border:1px solid rgba(61,214,140,.3);border-radius:100px;padding:6px 14px;background:rgba(61,214,140,.06);
+}
+.live-pill::before{content:"";width:7px;height:7px;border-radius:50%;background:#3DD68C;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(61,214,140,.5)}50%{opacity:.6;box-shadow:0 0 0 7px rgba(61,214,140,0)}}
+.drag-hint{
+  position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:10px;pointer-events:none;
+  font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:#8B93A7;
+  transition:opacity .5s;
+}
+.drag-hint svg{animation:wiggle 2.2s ease-in-out infinite}
+@keyframes wiggle{0%,100%{transform:translateX(-6px)}50%{transform:translateX(6px)}}
+.stage-caption{margin-top:20px;display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+.stage-caption b{color:#4FD8F5;font-weight:700}
+.stage-caption span{color:#8B93A7;font-size:14.5px;max-width:78ch}
+
+/* ── EXPLAINER ── */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+.duo-card{border:1px solid var(--line);border-radius:20px;padding:clamp(28px,3vw,44px);background:var(--card);box-shadow:0 10px 30px -18px rgba(18,22,33,.18)}
+.duo-card .duo-tag{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;display:inline-block;margin-bottom:18px;padding:6px 12px;border-radius:100px}
+.duo-web .duo-tag{color:#0071C8;background:rgba(0,157,231,.1)}
+.duo-app .duo-tag{color:#7B4FD8;background:rgba(123,79,216,.1)}
+.duo-card h3{font-size:clamp(20px,2vw,27px);margin-bottom:12px}
+.duo-card p{color:var(--muted);font-size:15px}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.stat{background:var(--card);padding:clamp(30px,3.4vw,50px)}
+.stat .n{
+  font-weight:900;font-size:clamp(44px,5.6vw,80px);letter-spacing:-.03em;line-height:1;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block;
+}
+.stat .l{color:var(--muted);font-size:14.5px;margin-top:14px;display:block;max-width:30ch}
+.stats-src{font-size:11px;font-weight:500;color:var(--muted-2);letter-spacing:.08em;text-transform:uppercase;margin-top:18px}
+
+/* ── TWO PATHS ── */
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+.path{
+  border-radius:24px;padding:clamp(28px,3vw,46px);position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.path-pro{
+  background:rgba(255,255,255,.62);border:1px solid rgba(0,128,200,.25);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  box-shadow:0 24px 60px -30px rgba(0,113,200,.35);
+}
+.path-pro .path-orbs{position:absolute;inset:0;pointer-events:none;z-index:0}
+.path-pro .path-orbs i{position:absolute;border-radius:50%;filter:blur(70px)}
+.path-pro .path-orbs i:nth-child(1){width:300px;height:300px;background:rgba(79,216,245,.45);top:-90px;right:-70px}
+.path-pro .path-orbs i:nth-child(2){width:260px;height:260px;background:rgba(123,79,216,.3);bottom:-80px;left:-60px}
+.path-vfb{
+  background:#0A0A10;color:#F1F4FA;border:1px solid rgba(255,255,255,.1);
+  --text:#F1F4FA;--muted:#8B93A7;--line:rgba(255,255,255,.1);
+  box-shadow:0 24px 60px -30px rgba(10,10,16,.6);
+}
+.path-vfb .path-orbs{position:absolute;inset:0;pointer-events:none;z-index:0}
+.path-vfb .path-orbs i{position:absolute;border-radius:50%;filter:blur(80px)}
+.path-vfb .path-orbs i:nth-child(1){width:300px;height:300px;background:rgba(123,79,216,.22);top:-90px;left:-70px}
+.path-vfb .path-orbs i:nth-child(2){width:240px;height:240px;background:rgba(225,84,127,.16);bottom:-70px;right:-60px}
+.path>*{position:relative;z-index:1}
+.path-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:6px}
+.path-kicker{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase}
+.path-pro .path-kicker{color:#0071C8}
+.path-vfb .path-kicker{color:#A98EE0}
+.path h3{font-size:clamp(24px,2.6vw,36px);letter-spacing:-.02em;margin-bottom:4px}
+.path .path-sub{color:var(--muted);font-size:14.5px;margin-bottom:22px}
+.path-canvas{
+  border-radius:16px;overflow:hidden;margin-bottom:24px;position:relative;
+  background:#0E0E15;border:1px solid rgba(255,255,255,.08);
+}
+.path-canvas canvas{display:block;width:100%;height:170px;cursor:grab;touch-action:pan-y}
+.path-canvas canvas:active{cursor:grabbing}
+.path-canvas .mini-live{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:#3DD68C;animation:pulse 1.6s infinite}
+.spec{list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--line);margin-bottom:28px;flex:1}
+.spec li{display:grid;grid-template-columns:120px 1fr;gap:14px;padding:13px 2px;border-bottom:1px solid var(--line);font-size:14px}
+.spec li .k{color:var(--muted-2);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding-top:2px}
+.spec li .v{color:var(--text)}
+.path .btn{justify-content:center}
+.paths-note{
+  text-align:center;color:var(--muted);font-size:13.5px;margin-top:22px;
+}
+
+/* ── PATH CARDS (audiences) ── */
+.fits{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.fit{
+  border:1px solid var(--line);border-radius:20px;padding:clamp(28px,3vw,44px);background:var(--card);
+  box-shadow:0 10px 30px -18px rgba(18,22,33,.18);position:relative;overflow:hidden;
+  transition:transform .4s var(--ease),border-color .4s;display:flex;flex-direction:column;
+}
+.fit:hover{transform:translateY(-5px);border-color:var(--line-bright)}
+.fit .aud{font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--v-cyan);margin-bottom:16px;display:block}
+.fit h3{font-size:clamp(20px,2vw,27px);margin-bottom:12px}
+.fit p{color:var(--muted);font-size:15px;margin-bottom:26px;flex:1}
+.fit .fit-cta{
+  display:inline-flex;align-items:center;gap:10px;font-weight:500;font-size:14px;color:var(--v-cyan);
+}
+.fit .fit-cta .arr{transition:transform .3s var(--ease)}
+.fit:hover .fit-cta .arr{transform:translateX(5px)}
+.fit::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--grad);transition:width .6s var(--ease)}
+.fit:hover::after{width:100%}
+
+/* ── TECHNOLOGY (dark) ── */
+.tech-list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.tech{
+  display:grid;grid-template-columns:56px 1fr auto;gap:clamp(18px,3vw,44px);align-items:start;
+  padding:clamp(28px,3.4vw,44px) 8px;border-bottom:1px solid var(--line);
+  transition:background .35s,padding-left .35s var(--ease);
+}
+.tech:hover{background:rgba(79,216,245,.03);padding-left:22px}
+.tech .t-idx{font-size:13px;font-weight:500;color:var(--muted-2);letter-spacing:.1em;padding-top:6px}
+.tech h3{font-size:clamp(20px,2.4vw,32px);letter-spacing:-.02em;margin-bottom:10px;max-width:22ch}
+.tech p{color:var(--muted);font-size:15px;max-width:66ch}
+.tech .t-tag{
+  font-size:10.5px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--v-cyan);
+  border:1px solid var(--line-bright);border-radius:100px;padding:7px 14px;white-space:nowrap;margin-top:6px;
+}
+@media(hover:hover){.tech:hover h3{color:var(--v-cyan)}}
+
+/* ── TRUST STRIP ── */
+.trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-soft)}
+.trust .wrap{padding-top:clamp(44px,5vw,64px);padding-bottom:clamp(44px,5vw,64px)}
+.trust-caption{text-align:center;font-size:12px;color:var(--muted-2);letter-spacing:.06em;margin-bottom:28px}
+.logo-row{display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,64px);align-items:center;justify-content:center}
+.logo-row span{
+  font-weight:700;font-size:clamp(13px,1.3vw,17px);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted-2);opacity:.75;filter:grayscale(1);white-space:nowrap;
+}
+.trust-legal{text-align:center;font-size:11.5px;color:var(--muted-2);margin-top:26px}
+
+/* ── CLOSER (glow) ── */
+.closer{text-align:center}
+.closer .wrap{padding-top:clamp(100px,13vw,170px);padding-bottom:clamp(100px,13vw,170px)}
+.closer h2{font-size:clamp(38px,6.4vw,96px);font-weight:900;letter-spacing:-.035em;line-height:1;max-width:14ch;margin:0 auto}
+.closer p{color:var(--muted);max-width:56ch;margin:28px auto 0;font-size:clamp(16px,1.4vw,19px)}
+.closer .hero-ctas{justify-content:center;margin-top:44px;opacity:1;animation:none}
+
+/* ── FOOTER (dark) ── */
+footer{background:#0A0A10;color:#F1F4FA;border-top:1px solid rgba(255,255,255,.08)}
+.foot{max-width:1400px;margin:0 auto;padding:56px clamp(20px,4vw,48px);display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:center}
+.foot .nav-logo .word{font-size:14px}
+.foot p{font-size:12.5px;color:#5C6478}
+.foot-links{display:flex;gap:26px;font-size:12px;font-weight:500;color:#8B93A7;letter-spacing:.06em;text-transform:uppercase}
+.foot-links a:hover{color:#4FD8F5}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1000px){
+  .duo,.paths,.fits{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .tech{grid-template-columns:40px 1fr}
+  .tech .t-tag{grid-column:2;justify-self:start;margin-top:12px}
+  .nav-links li:not(.nav-cta-li){display:none}
+}
+@media(max-width:640px){
+  .stats{grid-template-columns:1fr}
+  .hero h1{font-size:clamp(36px,11vw,52px)}
+  .stage canvas{height:320px}
+  .spec li{grid-template-columns:1fr;gap:4px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav">
+  <a class="nav-logo" href="#top" aria-label="VIVERSE Solutions home">
+    <span class="word">VIVERSE</span><span class="tier">SOLUTIONS</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#paths">Two paths</a></li>
+    <li><a href="#fits">Who it's for</a></li>
+    <li><a href="#tech">Technology</a></li>
+    <li><a href="viverse-pro.html">VIVERSE Pro</a></li>
+    <li class="nav-cta-li"><a class="btn btn-fill btn-sm" href="#paths">Find your path</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════ STEP 01 · ARRIVE (glow hero) ═══════════ -->
+<header class="hero glow" id="top">
+  <div class="orb orb-cyan" style="width:560px;height:560px;top:-160px;left:-120px"></div>
+  <div class="orb orb-purple" style="width:480px;height:480px;top:8%;right:-160px;animation-delay:-8s"></div>
+  <div class="orb orb-pink" style="width:380px;height:380px;bottom:-140px;left:38%;animation-delay:-4s"></div>
+  <div class="wrap">
+    <span class="eyebrow">VIVERSE Solutions</span>
+    <h1>
+      <span class="line"><span class="grad">Interactive 3D,</span></span>
+      <span class="line"><span>wherever your</span></span>
+      <span class="line"><span>business needs it.</span></span>
+    </h1>
+    <div class="hero-sub">
+      <p class="hero-lead">
+        Put living, explorable 3D on your website — or bring your team together inside a private
+        immersive space. <strong>Two platforms, one technology, no 3D pipeline to build.</strong>
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-fill" href="#see">See it live <span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="#paths">Find your path</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ STEP 02 · SEE IT LIVE (dark stage) ═══════════ -->
+<section class="dark-sec stage-sec" id="see">
+  <div class="wrap">
+    <div class="sec-head rv" style="margin-bottom:36px">
+      <span class="sec-tag"><i>Step 01</i> See it live</span>
+      <h2 class="sec-title">Before we explain anything — <span class="grad">touch it.</span></h2>
+    </div>
+    <div class="stage rv">
+      <canvas id="heroCanvas" aria-label="Live interactive 3D model — drag to spin"></canvas>
+      <div class="stage-chrome">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span class="url">viverse.com — streaming live</span>
+        <span style="width:52px"></span>
+      </div>
+      <div class="live-pill">LIVE</div>
+      <div class="drag-hint" id="dragHint">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M4 12l4-4M4 12l4 4M20 12l-4-4M20 12l-4 4"/></svg>
+        Drag to spin
+      </div>
+    </div>
+    <p class="stage-caption rv">
+      <b>This is live. Drag it.</b>
+      <span>Everything VIVERSE makes works like this — in a normal browser, on any device, with nothing to install.</span>
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════ STEP 03 · UNDERSTAND (light) ═══════════ -->
+<section>
+  <div class="wrap">
+    <div class="jline" style="margin:-30px auto 40px"></div>
+    <div class="sec-head rv">
+      <span class="sec-tag"><i>Step 02</i> The ten-second explainer</span>
+      <h2 class="sec-title">One company, <span class="grad">two platforms.</span></h2>
+      <p class="sec-lead"><strong>VIVERSE is HTC's interactive 3D company for business.</strong> Everything we build runs on the same core technology — streaming full-detail 3D to any device — delivered two ways:</p>
+    </div>
+    <div class="duo">
+      <div class="duo-card duo-web rv">
+        <span class="duo-tag">On the web · for your customers</span>
+        <h3>VIVERSE Pro</h3>
+        <p>Puts interactive 3D on your site, your campaigns, your product pages.</p>
+      </div>
+      <div class="duo-card duo-app rv rv-d1">
+        <span class="duo-tag">In a private app · for your people</span>
+        <h3>VIVERSE for Business</h3>
+        <p>Gives your team a secure immersive space to meet, train and collaborate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STEP 04 · WHY NOW (glow) ═══════════ -->
+<section class="glow" style="background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="orb orb-blue" style="width:460px;height:460px;top:-140px;right:6%;opacity:.5"></div>
+  <div class="orb orb-purple" style="width:380px;height:380px;bottom:-160px;left:-80px;opacity:.45;animation-delay:-6s"></div>
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-tag"><i>Step 03</i> Why now</span>
+      <h2 class="sec-title">Customers don't want to be told. <span class="grad">They want to try.</span></h2>
+      <p class="sec-lead">Every buying decision now starts with exploration — spinning the product, checking the detail, configuring the options. Businesses that let customers do that are measurably ahead:</p>
+    </div>
+    <div class="stats">
+      <div class="stat rv"><span class="n" data-count="94" data-prefix="+" data-suffix="%">+94%</span><span class="l">conversion lift for products shown in 3D</span></div>
+      <div class="stat rv rv-d1"><span class="n" data-count="40" data-prefix="−" data-suffix="%">−40%</span><span class="l">returns when shoppers interact in 3D before buying</span></div>
+      <div class="stat rv rv-d2"><span class="n" data-count="3" data-prefix="" data-suffix="×">3×</span><span class="l">engagement versus standard display media</span></div>
+    </div>
+    <p class="stats-src rv">Sources: Shopify · Google Research</p>
+  </div>
+</section>
+
+<!-- ═══════════ STEP 05 · CHOOSE YOUR PATH ═══════════ -->
+<section id="paths">
+  <div class="wrap">
+    <div class="jline" style="margin:-30px auto 40px"></div>
+    <div class="sec-head rv">
+      <span class="sec-tag"><i>Step 04</i> Two paths</span>
+      <h2 class="sec-title">Choose your <span class="grad">path.</span></h2>
+      <p class="sec-lead">This is the only place the two platforms meet. From here, each has its own home.</p>
+    </div>
+    <div class="paths">
+
+      <div class="path path-pro rv">
+        <div class="path-orbs"><i></i><i></i></div>
+        <div class="path-head">
+          <span class="path-kicker">The web platform</span>
+        </div>
+        <h3>VIVERSE Pro</h3>
+        <p class="path-sub">Interactive 3D hosted by us, embedded on your website.</p>
+        <div class="path-canvas">
+          <canvas data-geo="knot" data-hue="0" aria-label="Live 3D model — drag to spin"></canvas>
+          <span class="mini-live"></span>
+        </div>
+        <ul class="spec">
+          <li><span class="k">Best for</span><span class="v">Reaching customers</span></li>
+          <li><span class="k">How it's used</span><span class="v">Click a link or land on your page — nothing to install</span></li>
+          <li><span class="k">Runs on</span><span class="v">Any browser, any device</span></li>
+          <li><span class="k">How you buy</span><span class="v">Self-serve — public pricing, start free today</span></li>
+          <li><span class="k">Proof</span><span class="v">Try a live example right now</span></li>
+        </ul>
+        <a class="btn btn-fill" href="viverse-pro.html">Explore VIVERSE Pro <span class="arr">→</span></a>
+      </div>
+
+      <div class="path path-vfb rv rv-d1">
+        <div class="path-orbs"><i></i><i></i></div>
+        <div class="path-head">
+          <span class="path-kicker">The app</span>
+        </div>
+        <h3>VIVERSE for Business</h3>
+        <p class="path-sub">A private, persistent 3D collaboration platform.</p>
+        <div class="path-canvas">
+          <canvas data-geo="ico" data-hue="1" aria-label="Live 3D model — drag to spin"></canvas>
+          <span class="mini-live"></span>
+        </div>
+        <ul class="spec">
+          <li><span class="k">Best for</span><span class="v">Connecting your team</span></li>
+          <li><span class="k">How it's used</span><span class="v">Install the app, sign in, step into your space</span></li>
+          <li><span class="k">Runs on</span><span class="v">Desktop, mobile, VR, Igloo projection rooms</span></li>
+          <li><span class="k">How you buy</span><span class="v">Consultative — book a demo or buy through our partners</span></li>
+          <li><span class="k">Proof</span><span class="v">ISO 27001/27701 &amp; GDPR compliance, enterprise deployments</span></li>
+        </ul>
+        <a class="btn btn-ghost" href="#">Explore VIVERSE for Business <span class="arr">→</span></a>
+      </div>
+
+    </div>
+    <p class="paths-note rv">Two platforms, one technology — full-detail 3D, streamed by HTC.</p>
+  </div>
+</section>
+
+<!-- ═══════════ STEP 06 · FIND YOUR FIT (light) ═══════════ -->
+<section id="fits" style="background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-tag"><i>Step 05</i> Route by audience</span>
+      <h2 class="sec-title">Where do <span class="grad">you</span> fit?</h2>
+    </div>
+    <div class="fits">
+      <div class="fit rv">
+        <span class="aud">For brands &amp; e-commerce teams</span>
+        <h3>Sell with 3D, on the site you already have.</h3>
+        <p>Embed configurators, product inspectors and scroll-driven 3D stories anywhere. Your traffic, your brand, our streaming.</p>
+        <a class="fit-cta" href="viverse-pro.html">Explore VIVERSE Pro <span class="arr">→</span></a>
+      </div>
+      <div class="fit rv rv-d1">
+        <span class="aud">For enterprise, education &amp; training</span>
+        <h3>A private 3D space for your organisation.</h3>
+        <p>Meet, train and collaborate in secure immersive rooms — up to 100 people, on any device, with AI built in.</p>
+        <a class="fit-cta" href="#">Explore VIVERSE for Business <span class="arr">→</span></a>
+      </div>
+      <div class="fit rv">
+        <span class="aud">For agencies &amp; studios</span>
+        <h3>The infrastructure behind your creative work.</h3>
+        <p>You keep the client and the creative fee. We provide the hosting, streaming and delivery your clients can't build cheaply.</p>
+        <a class="fit-cta" href="#">Become a build partner <span class="arr">→</span></a>
+      </div>
+      <div class="fit rv rv-d1">
+        <span class="aud">For resellers &amp; distribution partners</span>
+        <h3>Bring VIVERSE to your customers.</h3>
+        <p>Reseller bundles, technology integrations and strategic distribution — with a named contact, not a queue.</p>
+        <a class="fit-cta" href="#">Talk to partnerships <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STEP 07 · UNDER THE HOOD (dark) ═══════════ -->
+<section class="dark-sec" id="tech">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-tag"><i>Step 06</i> Under the hood</span>
+      <h2 class="sec-title">The technology underneath — <span class="grad">translated.</span></h2>
+    </div>
+    <div class="tech-list">
+      <div class="tech rv">
+        <span class="t-idx">/ 01</span>
+        <div>
+          <h3>Your heaviest models, loading in seconds.</h3>
+          <p>Most 3D tools make you shrink your model to fit a file-size limit. We stream the full model from our servers, so a multi-million-polygon product runs smoothly on an ordinary phone.</p>
+        </div>
+        <span class="t-tag">Polygon Streaming</span>
+      </div>
+      <div class="tech rv">
+        <span class="t-idx">/ 02</span>
+        <div>
+          <h3>Fast for every visitor, worldwide — with zero infrastructure on your side.</h3>
+          <p>We host, we deliver, we scale. You paste one line of code.</p>
+        </div>
+        <span class="t-tag">Hosting + global CDN</span>
+      </div>
+      <div class="tech rv">
+        <span class="t-idx">/ 03</span>
+        <div>
+          <h3>Works on any device, with nothing to install.</h3>
+          <p>No app-store friction, no IT tickets, no plugin. If it has a browser, it works.</p>
+        </div>
+        <span class="t-tag">WebXR</span>
+      </div>
+      <div class="tech rv">
+        <span class="t-idx">/ 04</span>
+        <div>
+          <h3>3D content without a 3D team.</h3>
+          <p>Turn product photos into models, video into explorable scenes, and your knowledge base into an AI guide that answers customers in-experience.</p>
+        </div>
+        <span class="t-tag">Object AI · Scene AI · AI Avatars</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TRUST STRIP (muted light) ═══════════ -->
+<section class="trust">
+  <div class="wrap">
+    <p class="trust-caption rv">Organisations that have used or deployed VIVERSE platforms.</p>
+    <div class="logo-row rv rv-d1">
+      <span>HTC</span>
+      <span>1 Shot Energy</span>
+      <span>Château de Versailles</span>
+      <span>The Little Prince</span>
+      <span>Big Daddy Kane</span>
+    </div>
+    <p class="trust-legal rv rv-d2">Logos indicate usage, not endorsement.</p>
+  </div>
+</section>
+
+<!-- ═══════════ STEP 08 · START (glow closer) ═══════════ -->
+<section class="closer glow" id="start">
+  <div class="orb orb-cyan" style="width:520px;height:520px;top:-140px;left:10%;opacity:.5"></div>
+  <div class="orb orb-purple" style="width:460px;height:460px;bottom:-180px;right:8%;opacity:.45;animation-delay:-7s"></div>
+  <div class="wrap">
+    <div class="jline rv" style="margin:-40px auto 44px"></div>
+    <h2 class="rv">Start where <span class="grad">you are.</span></h2>
+    <p class="rv rv-d1">Try the web platform free in minutes, or book a walkthrough of the business app. Either way, you'll be looking at live 3D today — not a slide deck.</p>
+    <div class="hero-ctas rv rv-d2">
+      <a class="btn btn-fill" href="viverse-pro.html#pricing">Start free with VIVERSE Pro <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="#">Book a VIVERSE for Business demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="foot">
+    <div>
+      <a class="nav-logo" href="#top"><span class="word">VIVERSE</span><span class="tier">SOLUTIONS</span></a>
+      <p style="margin-top:12px">Interactive 3D for business, from HTC.<br>© 2026 HTC Corporation. All rights reserved.</p>
+    </div>
+    <div class="foot-links">
+      <a href="#paths">Two paths</a>
+      <a href="#fits">Who it's for</a>
+      <a href="#tech">Technology</a>
+      <a href="viverse-pro.html">VIVERSE Pro</a>
+      <a href="#">VIVERSE for Business</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════
+   Tiny 3D engine — zero dependencies. Same engine as
+   viverse-pro.html: wireframe/point geometry, perspective
+   projection, drag-to-spin with inertia.
+   ══════════════════════════════════════════════════ */
+(function(){
+"use strict";
+const DPR=Math.min(window.devicePixelRatio||1,2);
+const REDUCED=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const PALETTES=[
+  ["79,216,245","0,157,231","123,79,216"],
+  ["169,142,224","123,79,216","225,84,127"],
+  ["61,214,140","0,194,203","0,157,231"]
+];
+
+function torusKnot(p,q,segs,R,r){
+  const pts=[],edges=[];
+  for(let i=0;i<segs;i++){
+    const t=i/segs*Math.PI*2;
+    const cq=R+r*Math.cos(q*t);
+    pts.push([cq*Math.cos(p*t),cq*Math.sin(p*t),r*Math.sin(q*t)*1.6]);
+    edges.push([i,(i+1)%segs]);
+  }
+  return{pts,edges};
+}
+function icosphere(){
+  const t=(1+Math.sqrt(5))/2,s=1/Math.sqrt(1+t*t);
+  let v=[[-1,t,0],[1,t,0],[-1,-t,0],[1,-t,0],[0,-1,t],[0,1,t],[0,-1,-t],[0,1,-t],[t,0,-1],[t,0,1],[-t,0,-1],[-t,0,1]]
+    .map(p=>[p[0]*s,p[1]*s,p[2]*s]);
+  const f=[[0,11,5],[0,5,1],[0,1,7],[0,7,10],[0,10,11],[1,5,9],[5,11,4],[11,10,2],[10,7,6],[7,1,8],[3,9,4],[3,4,2],[3,2,6],[3,6,8],[3,8,9],[4,9,5],[2,4,11],[6,2,10],[8,6,7],[9,8,1]];
+  const cache={},pts=v.slice(),faces=[];
+  function mid(a,b){
+    const k=a<b?a+"_"+b:b+"_"+a;
+    if(cache[k]!==undefined)return cache[k];
+    const m=[(pts[a][0]+pts[b][0])/2,(pts[a][1]+pts[b][1])/2,(pts[a][2]+pts[b][2])/2];
+    const l=Math.hypot(m[0],m[1],m[2]);
+    pts.push([m[0]/l,m[1]/l,m[2]/l]);
+    return cache[k]=pts.length-1;
+  }
+  f.forEach(([a,b,c])=>{
+    const ab=mid(a,b),bc=mid(b,c),ca=mid(c,a);
+    faces.push([a,ab,ca],[b,bc,ab],[c,ca,bc],[ab,bc,ca]);
+  });
+  const eset=new Set(),edges=[];
+  faces.forEach(([a,b,c])=>[[a,b],[b,c],[c,a]].forEach(([i,j])=>{
+    const k=i<j?i+"_"+j:j+"_"+i;
+    if(!eset.has(k)){eset.add(k);edges.push([i,j]);}
+  }));
+  return{pts,edges};
+}
+const GEOS={
+  hero:()=>torusKnot(2,3,420,1,.34),
+  knot:()=>torusKnot(3,2,300,1,.3),
+  ico:()=>icosphere()
+};
+
+function makeViewer(canvas,geoName,hue,opts){
+  opts=opts||{};
+  const geo=GEOS[geoName]();
+  const pal=PALETTES[hue%PALETTES.length];
+  let W=0,H=0;
+  let rx=opts.rx!==undefined?opts.rx:.35, ry=opts.ry!==undefined?opts.ry:.6;
+  let vx=0, vy=opts.spin!==undefined?opts.spin:.004;
+  const baseSpin=vy;
+  let dragging=false,lx=0,ly=0;
+  const ctx=canvas.getContext("2d");
+
+  function resize(){
+    const r=canvas.getBoundingClientRect();
+    if(!r.width)return;
+    W=r.width;H=r.height;
+    canvas.width=W*DPR;canvas.height=H*DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  resize();
+  new ResizeObserver(resize).observe(canvas);
+
+  const proj=new Array(geo.pts.length);
+  function frame(){
+    if(!dragging){
+      vx*=.94;vy*=.94;
+      vy+=(baseSpin-vy)*.02;
+      rx+=vx;ry+=vy;
+    }
+    const scale=Math.min(W,H)*(opts.scale||.31);
+    const cx=W/2,cy=H/2;
+    const sx=Math.sin(rx),cxr=Math.cos(rx),sy=Math.sin(ry),cyr=Math.cos(ry);
+    ctx.clearRect(0,0,W,H);
+
+    for(let i=0;i<geo.pts.length;i++){
+      const p=geo.pts[i];
+      const x1=p[0]*cyr+p[2]*sy, z1=-p[0]*sy+p[2]*cyr;
+      const y2=p[1]*cxr-z1*sx, z2=p[1]*sx+z1*cxr;
+      const d=1/(1+z2*.28);
+      proj[i]=[cx+x1*scale*d, cy+y2*scale*d, z2, d];
+    }
+    ctx.lineWidth=1;
+    for(let e=0;e<geo.edges.length;e++){
+      const a=proj[geo.edges[e][0]], b=proj[geo.edges[e][1]];
+      const z=(a[2]+b[2])/2;
+      const t=Math.max(0,Math.min(1,(z+1.1)/2.2));
+      const col=t<.5?pal[0]:t<.8?pal[1]:pal[2];
+      const alpha=.55-t*.42;
+      if(alpha<=0.03)continue;
+      ctx.strokeStyle="rgba("+col+","+alpha.toFixed(3)+")";
+      ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();
+    }
+    for(let i=0;i<proj.length;i++){
+      const p=proj[i];
+      const t=Math.max(0,Math.min(1,(p[2]+1.1)/2.2));
+      const col=t<.45?pal[0]:t<.75?pal[1]:pal[2];
+      const r=(1.9-t*1.3)*(opts.pt||1);
+      if(r<=.2)continue;
+      ctx.fillStyle="rgba("+col+","+(0.95-t*.65).toFixed(3)+")";
+      ctx.beginPath();ctx.arc(p[0],p[1],r,0,6.2832);ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function down(x,y){dragging=true;lx=x;ly=y;if(opts.onInteract)opts.onInteract();}
+  function move(x,y){
+    if(!dragging)return;
+    vy=(x-lx)*.006;vx=(y-ly)*.006;
+    ry+=vy;rx+=vx;lx=x;ly=y;
+  }
+  function up(){dragging=false;}
+
+  canvas.addEventListener("pointerdown",e=>{canvas.setPointerCapture(e.pointerId);down(e.clientX,e.clientY);});
+  canvas.addEventListener("pointermove",e=>move(e.clientX,e.clientY));
+  canvas.addEventListener("pointerup",up);
+  canvas.addEventListener("pointercancel",up);
+
+  if(REDUCED){vy=0;}
+  requestAnimationFrame(frame);
+}
+
+/* hero stage */
+const heroCanvas=document.getElementById("heroCanvas");
+const dragHint=document.getElementById("dragHint");
+makeViewer(heroCanvas,"hero",0,{scale:.3,pt:1.1,spin:.0032,onInteract(){dragHint.style.opacity="0";}});
+
+/* path panel viewers */
+document.querySelectorAll(".path-canvas canvas").forEach(c=>{
+  makeViewer(c,c.dataset.geo,parseInt(c.dataset.hue,10),{scale:.34,pt:.85,spin:.005});
+});
+
+/* scroll progress */
+const bar=document.getElementById("progress");
+addEventListener("scroll",()=>{
+  const h=document.documentElement;
+  bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";
+},{passive:true});
+
+/* reveal on scroll */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}
+}),{threshold:.12,rootMargin:"0px 0px -40px 0px"});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+
+/* stat count-up */
+const sio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  sio.unobserve(e.target);
+  const el=e.target,end=+el.dataset.count,pre=el.dataset.prefix,suf=el.dataset.suffix;
+  if(REDUCED){el.textContent=pre+end+suf;return;}
+  const t0=performance.now(),dur=1400;
+  (function tick(now){
+    const p=Math.min(1,(now-t0)/dur),ease=1-Math.pow(1-p,3);
+    el.textContent=pre+Math.round(end*ease)+suf;
+    if(p<1)requestAnimationFrame(tick);
+  })(t0);
+}),{threshold:.5});
+document.querySelectorAll(".stat .n").forEach(el=>sio.observe(el));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIVERSE Pro | Give your brand a home for interactive 3D</title>
+<meta name="description" content="Host premium, branded 3D on VIVERSE Pro and embed it anywhere. Full-detail models, streaming on any device, live in about two weeks. Simple pricing — no quote required to start.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════
+   VIVERSE PRO — v1
+   Copy source: VIVERSE Site Copy v1 (July 2026)
+   NOTE (internal): pricing uses site/handover numbers
+   ($149/$1,490 · $1,499/$14,990) — flagged for sign-off
+   before launch per copy doc.
+   ══════════════════════════════════════════════════ */
+:root{
+  --v-blue:#009DE7;
+  --v-cyan:#4FD8F5;
+  --v-pink:#E1547F;
+  --v-purple:#7B4FD8;
+  --v-navy:#2D479C;
+  --bg:#0A0A10;
+  --bg-2:#0E0E15;
+  --bg-3:#14141D;
+  --surface:#181822;
+  --line:rgba(255,255,255,.08);
+  --line-bright:rgba(79,216,245,.25);
+  --text:#F1F4FA;
+  --muted:#8B93A7;
+  --muted-2:#5C6478;
+  --grad:linear-gradient(120deg,#4FD8F5 0%,#009DE7 40%,#7B4FD8 100%);
+  --grad-warm:linear-gradient(120deg,#E1547F,#7B4FD8);
+  --font-d:'Roboto',sans-serif;
+  --font-b:'Roboto',sans-serif;
+  --font-m:'Roboto',sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+::selection{background:#4FD8F5;color:#0A0A10}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:var(--font-b);font-size:16px;line-height:1.6;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-d);font-weight:700;line-height:1.05;letter-spacing:-.02em}
+/* small labels & eyebrows: Roboto Medium for legibility at small sizes */
+.eyebrow,.sec-tag,.nav-logo .tier,.stage-chrome .url,.live-pill,.drag-hint,.pillar .num,.q-item .qm,.code-head .file,.copy-btn,.embed-note,.show-row .idx,.vs-label,.stats-src,.plan .p-annual,.extra h4 i,.foot-links,.mini .mini-label{font-weight:500}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+button{font-family:inherit}
+
+/* grain overlay */
+body::after{
+  content:"";position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+/* scroll progress */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--grad);z-index:10000}
+
+/* ── NAV ── */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(20px,4vw,48px);
+  background:rgba(10,10,16,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+.nav-logo{display:flex;align-items:baseline;gap:10px;font-family:var(--font-d)}
+.nav-logo .word{font-weight:700;font-size:15px;letter-spacing:.18em;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nav-logo .tier{font-family:var(--font-m);font-size:10px;letter-spacing:.22em;color:var(--muted);border:1px solid var(--line);border-radius:3px;padding:2px 7px}
+.nav-links{display:flex;gap:30px;list-style:none;align-items:center}
+.nav-links a{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transition:color .25s}
+.nav-links a:hover{color:var(--v-cyan)}
+.nav-links a.btn-fill,.nav-links a.btn-fill:hover{color:#06060B}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;
+  font-family:var(--font-d);font-weight:500;font-size:14px;letter-spacing:.02em;
+  padding:14px 30px;border-radius:100px;position:relative;overflow:hidden;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease);will-change:transform;
+}
+.btn-fill{background:var(--grad);color:#06060B}
+.btn-fill:hover{transform:translateY(-2px);box-shadow:0 12px 40px -8px rgba(0,157,231,.55)}
+.btn-ghost{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.22)}
+.btn-ghost:hover{border-color:var(--v-cyan);color:var(--v-cyan);transform:translateY(-2px)}
+.btn-sm{padding:9px 20px;font-size:12px}
+.btn .arr{transition:transform .3s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100svh;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:120px clamp(20px,4vw,48px) 0;
+}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.hero-grid{
+  position:absolute;inset:-2px;
+  background-image:linear-gradient(rgba(79,216,245,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(79,216,245,.05) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,#000 20%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 30%,#000 20%,transparent 75%);
+}
+.orb{position:absolute;border-radius:50%;filter:blur(110px);opacity:.28;animation:drift 14s ease-in-out infinite alternate}
+.orb-a{width:560px;height:560px;background:var(--v-purple);top:-180px;left:-140px}
+.orb-b{width:460px;height:460px;background:var(--v-blue);top:10%;right:-160px;animation-delay:-7s}
+.orb-c{width:380px;height:380px;background:var(--v-pink);bottom:-120px;left:34%;opacity:.14;animation-delay:-3s}
+@keyframes drift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(50px,36px,0) scale(1.08)}}
+
+.hero-inner{position:relative;z-index:2;max-width:1400px;margin:0 auto;width:100%}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font-m);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--v-cyan);
+  margin-bottom:28px;
+}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--v-cyan)}
+.hero h1{
+  font-size:clamp(44px,7.4vw,112px);font-weight:700;letter-spacing:-.035em;line-height:.98;
+  max-width:13ch;
+}
+.hero h1 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:block;transform:translateY(110%);animation:riseUp 1s var(--ease) forwards}
+.hero h1 .line:nth-child(2) span{animation-delay:.1s}
+.hero h1 .line:nth-child(3) span{animation-delay:.2s}
+@keyframes riseUp{to{transform:translateY(0)}}
+.hero-sub{
+  display:flex;flex-wrap:wrap;gap:36px;align-items:flex-end;justify-content:space-between;
+  margin-top:40px;
+}
+.hero-lead{max-width:52ch;font-size:clamp(16px,1.4vw,19px);color:var(--muted);opacity:0;animation:fadeUp .9s var(--ease) .45s forwards}
+.hero-lead strong{color:var(--text);font-weight:500}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp .9s var(--ease) .6s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* hero stage — the live demo */
+.stage-wrap{position:relative;z-index:2;max-width:1400px;margin:56px auto 0;width:100%}
+.stage{
+  position:relative;border:1px solid var(--line);border-bottom:none;
+  border-radius:24px 24px 0 0;overflow:hidden;
+  background:linear-gradient(180deg,rgba(24,24,34,.6),rgba(10,10,16,.2));
+  backdrop-filter:blur(6px);
+}
+.stage canvas{display:block;width:100%;height:clamp(380px,56vh,620px);cursor:grab;touch-action:pan-y}
+.stage canvas:active{cursor:grabbing}
+.stage-chrome{
+  position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;
+  padding:16px 22px;pointer-events:none;
+}
+.stage-chrome .dots{display:flex;gap:7px}
+.stage-chrome .dots i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.14)}
+.stage-chrome .url{font-family:var(--font-m);font-size:11px;color:var(--muted-2);letter-spacing:.05em}
+.live-pill{
+  position:absolute;top:14px;right:18px;display:flex;align-items:center;gap:8px;
+  font-family:var(--font-m);font-size:10px;letter-spacing:.2em;color:#3DD68C;
+  border:1px solid rgba(61,214,140,.3);border-radius:100px;padding:6px 14px;
+  background:rgba(61,214,140,.06);
+}
+.live-pill::before{content:"";width:7px;height:7px;border-radius:50%;background:#3DD68C;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(61,214,140,.5)}50%{opacity:.6;box-shadow:0 0 0 7px rgba(61,214,140,0)}}
+.drag-hint{
+  position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:10px;pointer-events:none;
+  font-family:var(--font-m);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  transition:opacity .5s;
+}
+.drag-hint svg{animation:wiggle 2.2s ease-in-out infinite}
+@keyframes wiggle{0%,100%{transform:translateX(-6px)}50%{transform:translateX(6px)}}
+.stage-caption{
+  border:1px solid var(--line);border-radius:0 0 24px 24px;
+  padding:18px 24px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;
+  background:var(--bg-2);
+}
+.stage-caption b{font-family:var(--font-d);color:var(--v-cyan);font-weight:700;letter-spacing:.02em}
+.stage-caption span{color:var(--muted);font-size:14px}
+
+/* ── MARQUEE ── */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;overflow:hidden;background:var(--bg-2)}
+.marquee-track{display:flex;gap:64px;width:max-content;animation:scrollX 30s linear infinite;white-space:nowrap}
+.marquee-track span{font-family:var(--font-d);font-size:15px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted-2)}
+.marquee-track span em{font-style:normal;color:var(--v-cyan)}
+@keyframes scrollX{to{transform:translateX(-50%)}}
+
+/* ── LIGHT NEUTRAL SECTIONS ──
+   Re-scopes the theme variables; components resolve them locally. */
+section.light{
+  background:#EFF2F7;
+  border-top:1px solid rgba(18,22,33,.08);
+  border-bottom:1px solid rgba(18,22,33,.08);
+  color:var(--text);
+  --text:#141824;
+  --muted:#535D70;
+  --muted-2:#7E8798;
+  --line:rgba(18,22,33,.1);
+  --line-bright:rgba(0,128,200,.4);
+  --bg-2:#FFFFFF;
+  --bg-3:#F6F9FD;
+  --v-cyan:#0080C8;
+  --grad:linear-gradient(120deg,#00A6DE 0%,#0071C8 45%,#6A3FD0 100%);
+}
+section.light .btn-fill,section.light .plan-badge{color:#fff}
+section.light .btn-ghost{border-color:rgba(18,22,33,.28)}
+section.light .btn-ghost:hover{border-color:#0071C8;color:#0071C8}
+section.light .mini{background:#0E0E15;border-color:rgba(18,22,33,.22)}
+section.light .mini:hover{border-color:rgba(0,128,200,.5)}
+section.light .mini .mini-label{color:#8B93A7}
+section.light .step .s-num{
+  background:linear-gradient(180deg,rgba(0,113,200,.68),rgba(0,113,200,.07));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+section.light .pillar,section.light .step,section.light .format,section.light .plan,section.light .stat,section.light .extra{
+  box-shadow:0 10px 30px -18px rgba(18,22,33,.18);
+}
+
+section{position:relative}
+.wrap{max-width:1400px;margin:0 auto;padding:clamp(90px,11vw,160px) clamp(20px,4vw,48px)}
+.sec-head{margin-bottom:clamp(48px,6vw,80px);display:flex;flex-direction:column;gap:22px;max-width:900px}
+.sec-tag{
+  font-family:var(--font-m);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:12px;
+}
+.sec-tag i{font-style:normal;color:var(--v-cyan)}
+.sec-tag::after{content:"";flex:0 0 40px;height:1px;background:var(--line-bright)}
+h2.sec-title{font-size:clamp(32px,4.6vw,64px);letter-spacing:-.03em}
+h2.sec-title .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sec-lead{color:var(--muted);font-size:clamp(16px,1.35vw,19px);max-width:62ch}
+.sec-lead strong,.sec-lead em{color:var(--text);font-style:normal;font-weight:500}
+
+/* reveal on scroll */
+.rv{opacity:0;transform:translateY(36px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}.rv-d4{transition-delay:.32s}
+
+/* ── PILLARS ── */
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.pillar{background:var(--bg-2);padding:clamp(32px,3.4vw,52px);position:relative;transition:background .4s}
+.pillar:hover{background:var(--bg-3)}
+.pillar .num{font-family:var(--font-m);font-size:12px;color:var(--muted-2);letter-spacing:.2em;display:block;margin-bottom:60px}
+.pillar h3{font-size:clamp(22px,2vw,30px);margin-bottom:14px}
+.pillar p{color:var(--muted);font-size:15px}
+.pillar::after{
+  content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--grad);transition:width .6s var(--ease);
+}
+.pillar:hover::after{width:100%}
+
+/* ── PROBLEM / MODEL STRIP ── */
+.problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,5vw,90px);align-items:center}
+.q-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.q-item{padding:22px 4px;border-bottom:1px solid var(--line);display:flex;gap:18px;align-items:baseline}
+.q-item .qm{font-family:var(--font-m);color:var(--v-pink);font-size:13px}
+.q-item p{font-family:var(--font-d);font-size:clamp(18px,1.7vw,24px);color:var(--text);font-weight:500}
+.model-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:clamp(50px,6vw,80px)}
+.mini{
+  position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--bg-2);
+  transition:border-color .4s,transform .4s var(--ease);
+}
+.mini:hover{border-color:var(--line-bright);transform:translateY(-4px)}
+.mini canvas{display:block;width:100%;aspect-ratio:1/1.15;cursor:grab;touch-action:pan-y}
+.mini canvas:active{cursor:grabbing}
+.mini .mini-label{
+  position:absolute;left:14px;bottom:12px;font-family:var(--font-m);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);pointer-events:none;
+}
+.mini .mini-live{position:absolute;top:12px;right:12px;width:8px;height:8px;border-radius:50%;background:#3DD68C;animation:pulse 1.6s infinite;pointer-events:none}
+.strip-note{margin-top:20px;color:var(--muted);font-size:14px;display:flex;align-items:center;gap:10px}
+.strip-note::before{content:"";width:24px;height:1px;background:var(--v-cyan)}
+
+/* ── EMBED ── */
+.embed-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,5vw,80px);align-items:center}
+.code-card{
+  border:1px solid var(--line);border-radius:18px;background:#0C0C13;overflow:hidden;
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.7);
+}
+.code-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line)}
+.code-head .dots{display:flex;gap:6px}
+.code-head .dots i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.12)}
+.code-head .file{font-family:var(--font-m);font-size:11px;color:var(--muted-2)}
+.copy-btn{
+  font-family:var(--font-m);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+  background:none;border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer;transition:all .25s;
+}
+.copy-btn:hover{color:var(--v-cyan);border-color:var(--v-cyan)}
+.code-body{padding:26px 22px;font-family:var(--font-m);font-size:clamp(12px,1.2vw,14px);line-height:1.9;overflow-x:auto}
+.code-body .c-tag{color:var(--v-pink)}
+.code-body .c-attr{color:var(--v-cyan)}
+.code-body .c-val{color:#3DD68C}
+.code-body .c-dim{color:var(--muted-2)}
+.caret{display:inline-block;width:8px;height:1.1em;background:var(--v-cyan);vertical-align:text-bottom;animation:blink 1s steps(1) infinite;margin-left:2px}
+@keyframes blink{50%{opacity:0}}
+.embed-note{margin-top:16px;font-size:13px;color:var(--muted-2);font-family:var(--font-m);letter-spacing:.04em}
+.embed-note em{color:var(--v-cyan);font-style:normal}
+
+/* ── FORMATS ── */
+.formats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.format{
+  border:1px solid var(--line);border-radius:18px;padding:clamp(26px,2.6vw,38px);background:var(--bg-2);
+  position:relative;overflow:hidden;transition:border-color .4s,transform .4s var(--ease);
+}
+.format:hover{border-color:var(--line-bright);transform:translateY(-5px)}
+.format .glyph{
+  width:46px;height:46px;border-radius:12px;border:1px solid var(--line-bright);
+  display:flex;align-items:center;justify-content:center;margin-bottom:24px;
+  color:var(--v-cyan);background:rgba(79,216,245,.05);
+}
+.format h3{font-size:19px;margin-bottom:10px}
+.format p{color:var(--muted);font-size:14.5px}
+.format::before{
+  content:"";position:absolute;inset:0;opacity:0;transition:opacity .5s;pointer-events:none;
+  background:radial-gradient(420px 200px at var(--mx,50%) var(--my,0%),rgba(0,157,231,.1),transparent 70%);
+}
+.format:hover::before{opacity:1}
+.format-banner{
+  grid-column:1/-1;border:1px solid var(--line-bright);border-radius:18px;
+  padding:clamp(36px,4vw,60px);text-align:center;position:relative;overflow:hidden;
+  background:linear-gradient(180deg,rgba(0,157,231,.07),rgba(123,79,216,.05));
+}
+.format-banner h3{font-size:clamp(26px,3.4vw,44px);letter-spacing:-.02em}
+.format-banner h3 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.format-banner p{color:var(--muted);margin-top:14px;max-width:60ch;margin-left:auto;margin-right:auto}
+
+/* ── SHOWCASE ── */
+.showcase-list{border-top:1px solid var(--line)}
+.show-row{
+  display:grid;grid-template-columns:64px 1fr auto 40px;gap:clamp(16px,3vw,44px);align-items:center;
+  padding:clamp(26px,3vw,40px) 8px;border-bottom:1px solid var(--line);
+  transition:background .35s,padding-left .35s var(--ease);position:relative;
+}
+.show-row:hover{background:rgba(79,216,245,.03);padding-left:22px}
+.show-row .idx{font-family:var(--font-m);font-size:13px;color:var(--muted-2);letter-spacing:.1em}
+.show-row h3{font-size:clamp(22px,3vw,42px);font-weight:700;letter-spacing:-.02em;transition:color .3s}
+.show-row:hover h3{color:var(--v-cyan)}
+.show-row .desc{color:var(--muted);font-size:14px;max-width:36ch;text-align:right}
+.show-row .go{
+  width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;
+  color:var(--muted);transition:all .35s var(--ease);
+}
+.show-row:hover .go{background:var(--v-cyan);border-color:var(--v-cyan);color:#06060B;transform:rotate(-45deg)}
+.show-foot{margin-top:26px;font-size:14px;color:var(--muted);display:flex;align-items:center;gap:10px}
+.show-foot::before{content:"";width:24px;height:1px;background:var(--v-cyan)}
+
+/* ── BRAND CONTROL ── */
+.brand-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.brand-item{
+  display:flex;gap:20px;align-items:flex-start;padding:26px 28px;border:1px solid var(--line);border-radius:16px;
+  background:var(--bg-2);transition:border-color .35s,background .35s;
+}
+.brand-item:hover{border-color:var(--line-bright);background:var(--bg-3)}
+.brand-item .tick{
+  flex:0 0 26px;height:26px;border-radius:50%;background:rgba(79,216,245,.1);border:1px solid var(--line-bright);
+  display:flex;align-items:center;justify-content:center;color:var(--v-cyan);font-size:12px;margin-top:2px;
+}
+.brand-item h4{font-size:16.5px;margin-bottom:5px;font-weight:500}
+.brand-item p{color:var(--muted);font-size:14px}
+
+/* ── HOW IT WORKS ── */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:step}
+.step{
+  border:1px solid var(--line);border-radius:18px;padding:clamp(28px,3vw,44px);background:var(--bg-2);position:relative;
+}
+.step .s-num{
+  font-family:var(--font-d);font-size:clamp(52px,6vw,84px);font-weight:700;line-height:1;
+  background:linear-gradient(180deg,rgba(79,216,245,.5),rgba(79,216,245,.04));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  display:block;margin-bottom:26px;
+}
+.step h3{font-size:20px;margin-bottom:12px}
+.step p{color:var(--muted);font-size:14.5px}
+.proof-bar{
+  margin-top:18px;border:1px dashed var(--line-bright);border-radius:18px;
+  padding:clamp(26px,3vw,40px);display:flex;gap:24px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  background:rgba(0,157,231,.04);
+}
+.proof-bar h3{font-size:clamp(20px,2.2vw,28px)}
+.proof-bar p{color:var(--muted);font-size:15px;margin-top:6px}
+
+/* ── WHY / COMPETITIVE ── */
+.versus{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.vs-card{border-radius:20px;padding:clamp(30px,3.4vw,52px);border:1px solid var(--line);position:relative;overflow:hidden}
+.vs-them{background:var(--bg-2)}
+.vs-them .vs-label{color:var(--muted-2)}
+.vs-us{background:linear-gradient(160deg,rgba(0,157,231,.1),rgba(123,79,216,.07));border-color:var(--line-bright)}
+.vs-us .vs-label{color:var(--v-cyan)}
+.vs-label{font-family:var(--font-m);font-size:11px;letter-spacing:.24em;text-transform:uppercase;display:block;margin-bottom:22px}
+.vs-card h3{font-size:clamp(20px,2vw,27px);margin-bottom:16px}
+.vs-card p{color:var(--muted);font-size:15px}
+.vs-card ul{list-style:none;margin-top:22px;display:flex;flex-direction:column;gap:12px}
+.vs-card li{display:flex;gap:12px;font-size:14.5px;color:var(--muted)}
+.vs-them li::before{content:"✕";color:var(--v-pink);font-size:12px;margin-top:3px}
+.vs-us li::before{content:"✓";color:#3DD68C;font-size:12px;margin-top:3px}
+.vs-us li{color:var(--text)}
+.why-close{margin-top:clamp(36px,4vw,56px);max-width:70ch;color:var(--muted);font-size:clamp(16px,1.4vw,19px)}
+.why-close strong{color:var(--text);font-weight:500}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-bottom:clamp(56px,7vw,90px)}
+.stat{background:var(--bg-2);padding:clamp(30px,3.4vw,50px);text-align:left}
+.stat .n{
+  font-family:var(--font-d);font-weight:700;font-size:clamp(44px,5.6vw,80px);letter-spacing:-.03em;line-height:1;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:block;
+}
+.stat .l{color:var(--muted);font-size:14.5px;margin-top:14px;display:block;max-width:30ch}
+.stats-src{font-family:var(--font-m);font-size:11px;color:var(--muted-2);letter-spacing:.08em;margin-top:-70px;margin-bottom:70px}
+
+/* ── PRICING ── */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+.plan{
+  border:1px solid var(--line);border-radius:22px;padding:clamp(28px,2.8vw,42px);background:var(--bg-2);
+  display:flex;flex-direction:column;position:relative;transition:transform .4s var(--ease),border-color .4s;
+}
+.plan:hover{transform:translateY(-6px)}
+.plan-hot{border-color:transparent;background:var(--bg-3)}
+.plan-hot::before{
+  content:"";position:absolute;inset:-1px;border-radius:23px;padding:1px;background:var(--grad);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
+}
+.plan-badge{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  font-family:var(--font-m);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  background:var(--grad);color:#06060B;font-weight:700;padding:6px 16px;border-radius:100px;white-space:nowrap;
+}
+.plan .p-name{font-family:var(--font-d);font-size:19px;font-weight:500}
+.plan .p-for{color:var(--muted-2);font-size:13px;margin-top:6px}
+.plan .p-price{margin:26px 0 4px;display:flex;align-items:baseline;gap:8px}
+.plan .p-price .amt{font-family:var(--font-d);font-size:clamp(38px,3.6vw,52px);font-weight:700;letter-spacing:-.03em}
+.plan .p-price .per{color:var(--muted-2);font-size:14px}
+.plan .p-annual{font-family:var(--font-m);font-size:11.5px;color:var(--muted);letter-spacing:.05em;margin-bottom:26px}
+.plan ul{list-style:none;display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:24px;margin-bottom:30px;flex:1}
+.plan li{display:flex;gap:12px;font-size:14px;color:var(--muted);align-items:baseline}
+.plan li::before{content:"✓";color:var(--v-cyan);font-size:12px}
+.plan li.no{opacity:.38}
+.plan li.no::before{content:"—";color:var(--muted-2)}
+.plan li b{color:var(--text);font-weight:700}
+.plan .btn{justify-content:center}
+.pricing-extras{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.extra{border:1px solid var(--line);border-radius:16px;padding:24px 28px;background:var(--bg-2)}
+.extra h4{font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.extra h4 i{font-style:normal;color:var(--v-cyan);font-family:var(--font-m);font-size:11px;letter-spacing:.15em;border:1px solid var(--line-bright);padding:3px 8px;border-radius:4px}
+.extra p{color:var(--muted);font-size:13.5px}
+.extra p b{color:var(--text)}
+
+/* ── EXPLORATION ── */
+.explore{
+  border:1px solid var(--line);border-radius:24px;overflow:hidden;position:relative;
+  padding:clamp(48px,6vw,90px) clamp(28px,5vw,80px);
+  background:radial-gradient(900px 420px at 20% 0%,rgba(123,79,216,.14),transparent 65%),var(--bg-2);
+}
+.explore h2{font-size:clamp(30px,4vw,54px);max-width:16ch;letter-spacing:-.03em}
+.explore p{color:var(--muted);max-width:58ch;margin:22px 0 34px;font-size:clamp(15px,1.3vw,18px)}
+
+/* ── CLOSER ── */
+.closer{text-align:center;position:relative;overflow:hidden}
+.closer .wrap{padding-top:clamp(110px,14vw,190px);padding-bottom:clamp(110px,14vw,190px)}
+.closer h2{font-size:clamp(38px,6.4vw,96px);letter-spacing:-.035em;line-height:1;max-width:16ch;margin:0 auto}
+.closer h2 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.closer .big-offer{
+  font-family:var(--font-d);font-size:clamp(19px,2.2vw,28px);font-weight:500;color:var(--text);
+  margin:40px auto 12px;max-width:32ch;
+}
+.closer p{color:var(--muted);max-width:52ch;margin:0 auto}
+.closer .hero-ctas{justify-content:center;margin-top:44px;opacity:1;animation:none}
+.closer-orb{position:absolute;width:800px;height:420px;left:50%;top:55%;transform:translate(-50%,-50%);background:radial-gradient(ellipse,rgba(0,157,231,.16),transparent 65%);pointer-events:none}
+
+/* ── FOOTER ── */
+footer{border-top:1px solid var(--line);background:var(--bg-2)}
+.foot{max-width:1400px;margin:0 auto;padding:56px clamp(20px,4vw,48px);display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap;align-items:center}
+.foot .nav-logo .word{font-size:14px}
+.foot p{font-size:12.5px;color:var(--muted-2)}
+.foot-links{display:flex;gap:26px;font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;font-family:var(--font-m)}
+.foot-links a:hover{color:var(--v-cyan)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1000px){
+  .pillars,.steps,.formats,.plans,.stats{grid-template-columns:1fr 1fr}
+  .format-banner{grid-column:1/-1}
+  .problem-grid,.embed-grid,.versus{grid-template-columns:1fr}
+  .model-strip{grid-template-columns:repeat(2,1fr)}
+  .show-row{grid-template-columns:40px 1fr 40px}
+  .show-row .desc{display:none}
+  .nav-links li:not(.nav-cta-li){display:none}
+}
+@media(max-width:640px){
+  .pillars,.steps,.formats,.plans,.stats,.brand-grid,.pricing-extras{grid-template-columns:1fr}
+  .model-strip{grid-template-columns:repeat(2,1fr);gap:10px}
+  .hero h1{font-size:clamp(38px,11.5vw,54px)}
+  .stage canvas{height:340px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav">
+  <a class="nav-logo" href="#top" aria-label="VIVERSE Pro home">
+    <span class="word">VIVERSE</span><span class="tier">PRO</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#why">Why Pro</a></li>
+    <li><a href="#formats">Formats</a></li>
+    <li><a href="#showcase">Showcase</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li class="nav-cta-li"><a class="btn btn-fill btn-sm" href="#closing">Start free</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero" id="top">
+  <div class="hero-bg">
+    <div class="hero-grid"></div>
+    <div class="orb orb-a"></div><div class="orb orb-b"></div><div class="orb orb-c"></div>
+  </div>
+
+  <div class="hero-inner">
+    <span class="eyebrow">VIVERSE Pro · The web platform</span>
+    <h1>
+      <span class="line"><span>Give your brand</span></span>
+      <span class="line"><span>a home for</span></span>
+      <span class="line"><span class="grad">interactive 3D.</span></span>
+    </h1>
+    <div class="hero-sub">
+      <p class="hero-lead">
+        Premium, branded 3D — <strong>hosted by us, embedded on your site</strong>, streaming in full
+        detail on any device. Turn the traffic you already have into engagement, leads and sales.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-fill" href="#pricing">Start free <span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="#stage">Try a live example</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="stage-wrap" id="stage">
+    <div class="stage">
+      <canvas id="heroCanvas" aria-label="Live interactive 3D model — drag to spin"></canvas>
+      <div class="stage-chrome">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span class="url">viverse.com/your-experience</span>
+        <span style="width:52px"></span>
+      </div>
+      <div class="live-pill">LIVE</div>
+      <div class="drag-hint" id="dragHint">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16M4 12l4-4M4 12l4 4M20 12l-4-4M20 12l-4 4"/></svg>
+        Drag to spin
+      </div>
+    </div>
+    <div class="stage-caption">
+      <b>Go on — drag it.</b>
+      <span>This is what your customers get: real 3D, real time, right in the page. No app, no plugin, nothing to install.</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════ MARQUEE ═══════════ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Loads in seconds <em>·</em></span><span>Zero infrastructure <em>·</em></span><span>Nothing to install <em>·</em></span><span>No polygon limits <em>·</em></span><span>Any device <em>·</em></span><span>One line of code <em>·</em></span>
+    <span>Loads in seconds <em>·</em></span><span>Zero infrastructure <em>·</em></span><span>Nothing to install <em>·</em></span><span>No polygon limits <em>·</em></span><span>Any device <em>·</em></span><span>One line of code <em>·</em></span>
+  </div>
+</div>
+
+<!-- ═══════════ PILLARS ═══════════ -->
+<section id="why" class="light">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-tag"><i>01</i> Why teams choose Pro</span>
+      <h2 class="sec-title">Three reasons this works<br>where other 3D <span class="grad">doesn't.</span></h2>
+    </div>
+    <div class="pillars">
+      <div class="pillar rv"><span class="num">/ 01</span>
+        <h3>Loads in seconds.</h3>
+        <p>Your heaviest models open instantly in a normal browser — no optimisation work on your side, no quality compromise on ours.</p>
+      </div>
+      <div class="pillar rv rv-d1"><span class="num">/ 02</span>
+        <h3>Zero infrastructure.</h3>
+        <p>Hosting, global delivery and updates are all handled by us. Your IT team's involvement: pasting one line of code.</p>
+      </div>
+      <div class="pillar rv rv-d2"><span class="num">/ 03</span>
+        <h3>Nothing to install.</h3>
+        <p>No app, no plugin, no download prompt standing between a customer and your product. If it has a browser, it works.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROBLEM ═══════════ -->
+<section class="light">
+  <div class="wrap">
+    <div class="problem-grid">
+      <div class="sec-head rv" style="margin-bottom:0">
+        <span class="sec-tag"><i>02</i> The problem</span>
+        <h2 class="sec-title">A flat photo can't answer a customer's <span class="grad">questions.</span></h2>
+        <p class="sec-lead">Photos and videos <em>tell</em> customers about your product. 3D lets them <em>find out for themselves</em> — spin it, zoom into the stitching, switch the colour, and buy with confidence.</p>
+      </div>
+      <div class="q-list rv rv-d1">
+        <div class="q-item"><span class="qm">Q_</span><p>Will it fit?</p></div>
+        <div class="q-item"><span class="qm">Q_</span><p>What's the finish like in the light?</p></div>
+        <div class="q-item"><span class="qm">Q_</span><p>What does it look like in blue?</p></div>
+        <div class="q-item"><span class="qm">A_</span><p style="color:var(--v-cyan)">Let them find out for themselves.</p></div>
+      </div>
+    </div>
+
+    <div class="model-strip rv">
+      <div class="mini"><canvas data-geo="knot" data-hue="0" aria-label="Live 3D model — drag to spin"></canvas><span class="mini-live"></span><span class="mini-label">Product / 01</span></div>
+      <div class="mini"><canvas data-geo="ico" data-hue="1" aria-label="Live 3D model — drag to spin"></canvas><span class="mini-live"></span><span class="mini-label">Product / 02</span></div>
+      <div class="mini"><canvas data-geo="torus" data-hue="2" aria-label="Live 3D model — drag to spin"></canvas><span class="mini-live"></span><span class="mini-label">Product / 03</span></div>
+      <div class="mini"><canvas data-geo="helix" data-hue="3" aria-label="Live 3D model — drag to spin"></canvas><span class="mini-live"></span><span class="mini-label">Product / 04</span></div>
+    </div>
+    <p class="strip-note rv">These four are live. Every one is the full-resolution model — not a compressed copy.</p>
+  </div>
+</section>
+
+<!-- ═══════════ EMBED PROOF ═══════════ -->
+<section>
+  <div class="wrap">
+    <div class="embed-grid">
+      <div class="sec-head rv" style="margin-bottom:0">
+        <span class="sec-tag"><i>03</i> Embed proof</span>
+        <h2 class="sec-title">Embed it on your site — <span class="grad">just like this.</span></h2>
+        <p class="sec-lead">One line of code puts a live 3D experience into any page you already have: product pages, campaign landings, partner sites, marketplaces. Update the model on VIVERSE and it updates everywhere — <strong>without touching your site again.</strong></p>
+      </div>
+      <div class="rv rv-d1">
+        <div class="code-card">
+          <div class="code-head">
+            <div class="dots"><i></i><i></i><i></i></div>
+            <span class="file">your-product-page.html</span>
+            <button class="copy-btn" id="copyBtn" type="button">Copy</button>
+          </div>
+          <div class="code-body" id="codeBody"><span class="c-dim">&lt;!-- your existing page --&gt;</span><br><span class="c-tag">&lt;iframe</span> <span class="c-attr">src</span>=<span class="c-val">"https://viverse.com/your-experience"</span><br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="c-attr">allow</span>=<span class="c-val">"xr-spatial-tracking"</span> <span class="c-tag">/&gt;</span><span class="caret"></span></div>
+        </div>
+        <p class="embed-note"><em>&gt;</em> Yes, it's really that line.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FORMATS ═══════════ -->
+<section id="formats" class="light">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-tag"><i>04</i> Formats</span>
+      <h2 class="sec-title">One platform, every format your product <span class="grad">needs.</span></h2>
+    </div>
+    <div class="formats">
+      <div class="format rv">
+        <div class="glyph"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L3 7v10l9 5 9-5V7l-9-5z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg></div>
+        <h3>Product inspector &amp; configurator</h3>
+        <p>Let customers change colours, materials and options in real time — and understand exactly what they're buying.</p>
+      </div>
+      <div class="format rv rv-d1">
+        <div class="glyph"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M12 21l-4-4M12 21l4-4M5 3h14"/></svg></div>
+        <h3>Scroll-driven 3D storytelling</h3>
+        <p>Reveal features as the customer scrolls. The product tells its own story — no video production required.</p>
+      </div>
+      <div class="format rv rv-d2">
+        <div class="glyph"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="12" height="14" rx="2"/><path d="M18 8h3v8h-3M6 9h6M6 13h4"/></svg></div>
+        <h3>Media-carousel companion</h3>
+        <p>Add a live 3D view alongside your existing product photos. No redesign, just one more thumbnail — the one they'll remember.</p>
+      </div>
+      <div class="format rv">
+        <div class="glyph"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21V8l9-5 9 5v13M9 21v-6h6v6"/></svg></div>
+        <h3>Full immersive room</h3>
+        <p>Stage your products in a branded 3D store or showroom customers can walk through.</p>
+      </div>
+      <div class="format rv rv-d1">
+        <div class="glyph"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6M9 8h.01M15 8h.01"/></svg></div>
+        <h3>In-experience AI agent</h3>
+        <p>An AI guide that answers questions, compares options and captures leads while customers explore — trained on your knowledge, speaking in your voice.</p>
+      </div>
+      <div class="format rv rv-d2">
+        <div class="glyph"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 16l6-8 4 5 2-2 4 5H4z"/><circle cx="8" cy="6" r="2"/></svg></div>
+        <h3>Digital twins, scans &amp; art</h3>
+        <p>Scanned spaces, architecture, heritage, installations — full-detail worlds your audience can explore from any browser.</p>
+      </div>
+      <div class="format-banner rv">
+        <h3>If it's 3D, it runs on <span class="grad">VIVERSE.</span></h3>
+        <p>Product models, digital twins, scanned spaces, art, architecture — if you can make it, we can stream it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SHOWCASE ═══════════ -->
+<section id="showcase">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-tag"><i>05</i> Showcase</span>
+      <h2 class="sec-title">Don't take our word for it. <span class="grad">Click these.</span></h2>
+    </div>
+    <div class="showcase-list">
+      <a class="show-row rv" href="#" aria-label="Open the 1 Shot Energy live experience">
+        <span class="idx">/ 01</span>
+        <h3>1 Shot Energy</h3>
+        <span class="desc">A product page that sells by letting you play</span>
+        <span class="go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="show-row rv" href="#" aria-label="Open the Palace of Versailles live experience">
+        <span class="idx">/ 02</span>
+        <h3>Palace of Versailles</h3>
+        <span class="desc">Cultural storytelling with global access</span>
+        <span class="go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="show-row rv" href="#" aria-label="Open The Little Prince live experience">
+        <span class="idx">/ 03</span>
+        <h3>The Little Prince</h3>
+        <span class="desc">An IP world fans can step into</span>
+        <span class="go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="show-row rv" href="#" aria-label="Open the Big Daddy Kane live experience">
+        <span class="idx">/ 04</span>
+        <h3>Big Daddy Kane</h3>
+        <span class="desc">A premium fan drop as a brand moment</span>
+        <span class="go"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+    <p class="show-foot rv">Every one of these opens in your browser. That's the product.</p>
+  </div>
+</section>
+
+<!-- ═══════════ BRAND CONTROL ═══════════ -->
+<section style="background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-tag"><i>06</i> Brand control</span>
+      <h2 class="sec-title">On the paid plans, every pixel is <span class="grad">yours.</span></h2>
+      <p class="sec-lead">The Free tier gets you live. Pro Scale and Pro Enterprise make it unmistakably <em>yours</em>:</p>
+    </div>
+    <div class="brand-grid">
+      <div class="brand-item rv"><span class="tick">✓</span><div><h4>No VIVERSE logo</h4><p>The customer journey stays focused on your brand.</p></div></div>
+      <div class="brand-item rv rv-d1"><span class="tick">✓</span><div><h4>Your own loading splash</h4><p>First impressions in your identity, not a platform default.</p></div></div>
+      <div class="brand-item rv"><span class="tick">✓</span><div><h4>Verified brand profile</h4><p>The blue tick that tells customers this is official.</p></div></div>
+      <div class="brand-item rv rv-d1"><span class="tick">✓</span><div><h4>Cinematic mode</h4><p>Platform UI recedes, your content takes the full stage.</p></div></div>
+      <div class="brand-item rv"><span class="tick">✓</span><div><h4>Ad-free, always</h4><p>No third-party ads anywhere near your products.</p></div></div>
+      <div class="brand-item rv rv-d1"><span class="tick">✓</span><div><h4>Analytics</h4><p>See which experiences drive engagement, leads, return visits and buying intent.</p></div></div>
+      <div class="brand-item rv" style="grid-column:1/-1"><span class="tick">✓</span><div><h4>Private &amp; VIP access</h4><p>Controlled journeys for VIP customers, press previews, partners or internal teams.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ HOW IT WORKS ═══════════ -->
+<section id="how" class="light">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-tag"><i>07</i> How it works</span>
+      <h2 class="sec-title">From your assets to live 3D in about <span class="grad">two weeks.</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step rv"><span class="s-num">01</span>
+        <h3>Share your assets</h3>
+        <p>Send your existing 3D files as-is — no simplifying, no prep. No 3D files? Our team builds models from your product photos.</p>
+      </div>
+      <div class="step rv rv-d1"><span class="s-num">02</span>
+        <h3>We optimise and host</h3>
+        <p>We convert, optimise and host everything with global delivery built in. Full detail preserved, no polygon limits.</p>
+      </div>
+      <div class="step rv rv-d2"><span class="s-num">03</span>
+        <h3>Embed and go live</h3>
+        <p>Paste one line of code. Your 3D is live for every visitor, on every device.</p>
+      </div>
+    </div>
+    <div class="proof-bar rv">
+      <div>
+        <h3>Want proof before you commit?</h3>
+        <p>Send us one product — we'll send back a live link you can open in your browser.</p>
+      </div>
+      <a class="btn btn-fill" href="#closing">Send us a product <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ WHY VIVERSE PRO ═══════════ -->
+<section style="background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-tag"><i>08</i> Why VIVERSE Pro</span>
+      <h2 class="sec-title">Built for the models others <span class="grad">can't handle.</span></h2>
+    </div>
+    <div class="versus">
+      <div class="vs-card vs-them rv">
+        <span class="vs-label">Most web 3D tools</span>
+        <h3>Shrink the model. Hope the device copes.</h3>
+        <p>Squeeze your model under a file-size limit, then render it on the visitor's device.</p>
+        <ul>
+          <li>Simplified geometry, flattened detail</li>
+          <li>A viewer that stutters on older phones</li>
+          <li>Optimisation work lands on your team</li>
+          <li>A widget in a page — nothing more</li>
+        </ul>
+      </div>
+      <div class="vs-card vs-us rv rv-d1">
+        <span class="vs-label">VIVERSE Pro</span>
+        <h3>Stream the full model. Every device keeps up.</h3>
+        <p>The engine loads only what the visitor is looking at, so a multi-million-polygon product runs smoothly on an ordinary phone.</p>
+        <ul>
+          <li>Every stitch, every reflection — exactly as designed</li>
+          <li>Smooth on an ordinary phone</li>
+          <li>No polygon limits, no prep on your side</li>
+          <li>AI agents, guided journeys, branded hubs, analytics — one platform, one subscription</li>
+        </ul>
+      </div>
+    </div>
+    <p class="why-close rv">And because Pro is a <strong>hosted platform</strong> rather than a viewer widget, you get what a widget can't offer: AI agents, guided journeys, branded hubs, analytics and managed asset production — in one place, on one subscription.</p>
+  </div>
+</section>
+
+<!-- ═══════════ PRICING ═══════════ -->
+<section id="pricing" class="light">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-tag"><i>09</i> Pricing</span>
+      <h2 class="sec-title">Simple pricing. No quote required <span class="grad">to start.</span></h2>
+      <p class="sec-lead">While others hide pricing behind a sales call, ours is on the page. Start free today; upgrade when it's working.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat rv"><span class="n" data-count="94" data-prefix="+" data-suffix="%">+94%</span><span class="l">conversion lift for products shown in 3D</span></div>
+      <div class="stat rv rv-d1"><span class="n" data-count="40" data-prefix="−" data-suffix="%">−40%</span><span class="l">returns when shoppers interact in 3D before buying</span></div>
+      <div class="stat rv rv-d2"><span class="n" data-count="3" data-prefix="" data-suffix="×">3×</span><span class="l">engagement versus standard display media</span></div>
+    </div>
+    <p class="stats-src rv" style="margin-top:-70px;margin-bottom:70px">SOURCES: SHOPIFY · GOOGLE RESEARCH</p>
+
+    <div class="plans">
+      <div class="plan rv">
+        <span class="p-name">Free</span>
+        <span class="p-for">For trying it out</span>
+        <div class="p-price"><span class="amt">$0</span></div>
+        <span class="p-annual">forever</span>
+        <ul>
+          <li>Embed + auto CDN</li>
+          <li><b>2 GB</b> Polygon Streaming storage</li>
+          <li><b>100 MB</b> max file size</li>
+          <li class="no">Remove VIVERSE logo, ad-free</li>
+          <li class="no">Verified brand profile &amp; analytics</li>
+          <li class="no">Cinematic mode &amp; custom splash</li>
+          <li class="no">SSO (SAML 2.0 / OIDC)</li>
+          <li class="no">24/7 support + 99.5% SLA</li>
+        </ul>
+        <a class="btn btn-ghost" href="#closing">Start free</a>
+      </div>
+
+      <div class="plan plan-hot rv rv-d1">
+        <span class="plan-badge">⭐ Most popular</span>
+        <span class="p-name">Pro Scale</span>
+        <span class="p-for">For growing brands</span>
+        <div class="p-price"><span class="amt">$149</span><span class="per">/mo</span></div>
+        <span class="p-annual">or $1,490/yr — two months free</span>
+        <ul>
+          <li>Embed + auto CDN</li>
+          <li><b>50 GB</b> Polygon Streaming storage</li>
+          <li><b>500 MB</b> max file size</li>
+          <li>Remove VIVERSE logo, ad-free</li>
+          <li>Verified brand profile &amp; analytics</li>
+          <li>Cinematic mode &amp; custom splash</li>
+          <li class="no">SSO (SAML 2.0 / OIDC)</li>
+          <li class="no">24/7 support + 99.5% SLA</li>
+        </ul>
+        <a class="btn btn-fill" href="#closing">Start with Scale <span class="arr">→</span></a>
+      </div>
+
+      <div class="plan rv rv-d2">
+        <span class="p-name">Pro Enterprise</span>
+        <span class="p-for">For large catalogues &amp; teams</span>
+        <div class="p-price"><span class="amt">$1,499</span><span class="per">/mo</span></div>
+        <span class="p-annual">or $14,990/yr — two months free</span>
+        <ul>
+          <li>Embed + auto CDN</li>
+          <li><b>250 GB</b> Polygon Streaming storage</li>
+          <li><b>1,000 MB</b> max file size</li>
+          <li>Remove VIVERSE logo, ad-free</li>
+          <li>Verified brand profile &amp; <b>enhanced</b> analytics</li>
+          <li>Cinematic mode &amp; custom splash</li>
+          <li>SSO (SAML 2.0 / OIDC)</li>
+          <li>24/7 support + <b>99.5% SLA</b></li>
+        </ul>
+        <a class="btn btn-ghost" href="#closing">Talk to us</a>
+      </div>
+    </div>
+
+    <div class="pricing-extras">
+      <div class="extra rv">
+        <h4><i>AI ADD-ONS</i></h4>
+        <p><b>Object AI</b> from $19 / 50 objects · <b>Scene AI</b> $49 / 5 scenes.</p>
+      </div>
+      <div class="extra rv rv-d1">
+        <h4><i>ASSET SETUP</i></h4>
+        <p>Need models built or tuned? Optional 3D asset setup from <b>$2,500</b> (upload-ready assets) to <b>$5,000</b> (full build from photos) — transparent, hours-based, two revision rounds included.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EXPLORATION PROGRAMME ═══════════ -->
+<section>
+  <div class="wrap" style="padding-top:0">
+    <div class="explore rv">
+      <span class="sec-tag" style="margin-bottom:22px"><i>10</i> Exploration programme</span>
+      <h2>Early? So are we. Let's build the standard together.</h2>
+      <p>Interactive 3D on the web is young, and we're building it with a small group of hands-on partners — full Pro access, guided onboarding, and a direct line to our roadmap, in exchange for real-world use and honest feedback.</p>
+      <a class="btn btn-ghost" href="#closing">Ask us about the exploration programme <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CLOSING CTA ═══════════ -->
+<section class="closer" id="closing">
+  <div class="closer-orb"></div>
+  <div class="wrap">
+    <h2 class="rv">See your own product in 3D — <span class="grad">this week.</span></h2>
+    <p class="big-offer rv rv-d1">Send us one product. We'll send back a live link.</p>
+    <p class="rv rv-d2">No meeting, no deck, no commitment — just your product, streaming in your browser, ready to forward to your team. Or start free and publish your first experience today.</p>
+    <div class="hero-ctas rv rv-d3">
+      <a class="btn btn-fill" href="#">Start free <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="#">Send us a product</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="foot">
+    <div>
+      <a class="nav-logo" href="#top"><span class="word">VIVERSE</span><span class="tier">PRO</span></a>
+      <p style="margin-top:12px">Interactive 3D for business, from HTC.<br>© 2026 HTC Corporation. All rights reserved.</p>
+    </div>
+    <div class="foot-links">
+      <a href="#why">Why Pro</a>
+      <a href="#formats">Formats</a>
+      <a href="#pricing">Pricing</a>
+      <a href="viverse-solutions.html">Solutions overview</a>
+      <a href="#">VIVERSE for Business</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════
+   Tiny 3D engine — zero dependencies.
+   Wireframe/point geometry, perspective projection,
+   drag-to-spin with inertia. Powers the hero stage
+   and the four mini viewers.
+   ══════════════════════════════════════════════════ */
+(function(){
+"use strict";
+const DPR=Math.min(window.devicePixelRatio||1,2);
+const REDUCED=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* palette stops used to colour points/lines by depth */
+const PALETTES=[
+  ["79,216,245","0,157,231","123,79,216"],   /* cyan→blue→purple */
+  ["225,84,127","123,79,216","0,157,231"],   /* pink→purple→blue */
+  ["61,214,140","0,194,203","0,157,231"],    /* green→teal→blue */
+  ["245,200,66","225,84,127","123,79,216"]   /* gold→pink→purple */
+];
+
+/* ── geometry builders: return {pts:[[x,y,z]...], edges:[[i,j]...]} ── */
+function torusKnot(p,q,segs,R,r){
+  const pts=[],edges=[];
+  for(let i=0;i<segs;i++){
+    const t=i/segs*Math.PI*2;
+    const cq=R+r*Math.cos(q*t);
+    pts.push([cq*Math.cos(p*t),cq*Math.sin(p*t),r*Math.sin(q*t)*1.6]);
+    edges.push([i,(i+1)%segs]);
+  }
+  return{pts,edges};
+}
+function icosphere(){
+  const t=(1+Math.sqrt(5))/2,s=1/Math.sqrt(1+t*t);
+  let v=[[-1,t,0],[1,t,0],[-1,-t,0],[1,-t,0],[0,-1,t],[0,1,t],[0,-1,-t],[0,1,-t],[t,0,-1],[t,0,1],[-t,0,-1],[-t,0,1]]
+    .map(p=>[p[0]*s,p[1]*s,p[2]*s]);
+  const f=[[0,11,5],[0,5,1],[0,1,7],[0,7,10],[0,10,11],[1,5,9],[5,11,4],[11,10,2],[10,7,6],[7,1,8],[3,9,4],[3,4,2],[3,2,6],[3,6,8],[3,8,9],[4,9,5],[2,4,11],[6,2,10],[8,6,7],[9,8,1]];
+  /* subdivide once for density */
+  const cache={},pts=v.slice(),faces=[];
+  function mid(a,b){
+    const k=a<b?a+"_"+b:b+"_"+a;
+    if(cache[k]!==undefined)return cache[k];
+    const m=[(pts[a][0]+pts[b][0])/2,(pts[a][1]+pts[b][1])/2,(pts[a][2]+pts[b][2])/2];
+    const l=Math.hypot(m[0],m[1],m[2]);
+    pts.push([m[0]/l,m[1]/l,m[2]/l]);
+    return cache[k]=pts.length-1;
+  }
+  f.forEach(([a,b,c])=>{
+    const ab=mid(a,b),bc=mid(b,c),ca=mid(c,a);
+    faces.push([a,ab,ca],[b,bc,ab],[c,ca,bc],[ab,bc,ca]);
+  });
+  const eset=new Set(),edges=[];
+  faces.forEach(([a,b,c])=>[[a,b],[b,c],[c,a]].forEach(([i,j])=>{
+    const k=i<j?i+"_"+j:j+"_"+i;
+    if(!eset.has(k)){eset.add(k);edges.push([i,j]);}
+  }));
+  return{pts,edges};
+}
+function torusGrid(R,r,nu,nv){
+  const pts=[],edges=[];
+  for(let i=0;i<nu;i++)for(let j=0;j<nv;j++){
+    const u=i/nu*Math.PI*2,v2=j/nv*Math.PI*2;
+    pts.push([(R+r*Math.cos(v2))*Math.cos(u),(R+r*Math.cos(v2))*Math.sin(u),r*Math.sin(v2)]);
+  }
+  for(let i=0;i<nu;i++)for(let j=0;j<nv;j++){
+    const a=i*nv+j;
+    edges.push([a,i*nv+(j+1)%nv],[a,((i+1)%nu)*nv+j]);
+  }
+  return{pts,edges};
+}
+function helix(turns,segs,R,pitch){
+  const pts=[],edges=[];
+  for(let i=0;i<segs;i++){
+    const t=i/(segs-1),a=t*turns*Math.PI*2;
+    pts.push([R*Math.cos(a),(t-.5)*pitch,R*Math.sin(a)]);
+    if(i)edges.push([i-1,i]);
+  }
+  /* second strand */
+  const off=pts.length;
+  for(let i=0;i<segs;i++){
+    const t=i/(segs-1),a=t*turns*Math.PI*2+Math.PI;
+    pts.push([R*Math.cos(a),(t-.5)*pitch,R*Math.sin(a)]);
+    if(i)edges.push([off+i-1,off+i]);
+  }
+  for(let i=0;i<segs;i+=6)edges.push([i,off+i]); /* rungs */
+  return{pts,edges};
+}
+const GEOS={
+  hero:()=>torusKnot(2,3,420,1,.34),
+  knot:()=>torusKnot(3,2,300,1,.3),
+  ico:()=>icosphere(),
+  torus:()=>torusGrid(1,.42,26,14),
+  helix:()=>helix(3.5,80,.75,2.4)
+};
+
+function makeViewer(canvas,geoName,hue,opts){
+  opts=opts||{};
+  const geo=GEOS[geoName]();
+  const pal=PALETTES[hue%PALETTES.length];
+  let W=0,H=0;
+  let rx=opts.rx!==undefined?opts.rx:.35, ry=opts.ry!==undefined?opts.ry:.6;
+  let vx=0, vy=opts.spin!==undefined?opts.spin:.004;
+  const baseSpin=vy;
+  let dragging=false,lx=0,ly=0,interacted=false;
+  const ctx=canvas.getContext("2d");
+
+  function resize(){
+    const r=canvas.getBoundingClientRect();
+    if(!r.width)return;
+    W=r.width;H=r.height;
+    canvas.width=W*DPR;canvas.height=H*DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  resize();
+  new ResizeObserver(resize).observe(canvas);
+
+  const proj=new Array(geo.pts.length);
+  function frame(){
+    if(!dragging){
+      vx*=.94;vy*=.94;
+      vy+=(baseSpin-vy)*.02;   /* ease back to idle spin */
+      rx+=vx;ry+=vy;
+    }
+    const scale=Math.min(W,H)*(opts.scale||.31);
+    const cx=W/2,cy=H/2;
+    const sx=Math.sin(rx),cxr=Math.cos(rx),sy=Math.sin(ry),cyr=Math.cos(ry);
+    ctx.clearRect(0,0,W,H);
+
+    for(let i=0;i<geo.pts.length;i++){
+      const p=geo.pts[i];
+      /* rotate Y then X */
+      const x1=p[0]*cyr+p[2]*sy, z1=-p[0]*sy+p[2]*cyr;
+      const y2=p[1]*cxr-z1*sx, z2=p[1]*sx+z1*cxr;
+      const d=1/(1+z2*.28);   /* perspective */
+      proj[i]=[cx+x1*scale*d, cy+y2*scale*d, z2, d];
+    }
+    /* edges */
+    ctx.lineWidth=1;
+    for(let e=0;e<geo.edges.length;e++){
+      const a=proj[geo.edges[e][0]], b=proj[geo.edges[e][1]];
+      const z=(a[2]+b[2])/2;                 /* -~1 near, +~1 far */
+      const t=Math.max(0,Math.min(1,(z+1.1)/2.2));
+      const col=t<.5?pal[0]:t<.8?pal[1]:pal[2];
+      const alpha=.55-t*.42;
+      if(alpha<=0.03)continue;
+      ctx.strokeStyle="rgba("+col+","+alpha.toFixed(3)+")";
+      ctx.beginPath();ctx.moveTo(a[0],a[1]);ctx.lineTo(b[0],b[1]);ctx.stroke();
+    }
+    /* points */
+    for(let i=0;i<proj.length;i++){
+      const p=proj[i];
+      const t=Math.max(0,Math.min(1,(p[2]+1.1)/2.2));
+      const col=t<.45?pal[0]:t<.75?pal[1]:pal[2];
+      const r=(1.9-t*1.3)*(opts.pt||1);
+      if(r<=.2)continue;
+      ctx.fillStyle="rgba("+col+","+(0.95-t*.65).toFixed(3)+")";
+      ctx.beginPath();ctx.arc(p[0],p[1],r,0,6.2832);ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function down(x,y){dragging=true;lx=x;ly=y;interacted=true;if(opts.onInteract)opts.onInteract();}
+  function move(x,y){
+    if(!dragging)return;
+    vy=(x-lx)*.006;vx=(y-ly)*.006;
+    ry+=vy;rx+=vx;lx=x;ly=y;
+  }
+  function up(){dragging=false;}
+
+  canvas.addEventListener("pointerdown",e=>{canvas.setPointerCapture(e.pointerId);down(e.clientX,e.clientY);});
+  canvas.addEventListener("pointermove",e=>move(e.clientX,e.clientY));
+  canvas.addEventListener("pointerup",up);
+  canvas.addEventListener("pointercancel",up);
+
+  if(REDUCED){vy=0;}
+  requestAnimationFrame(frame);
+}
+
+/* hero stage */
+const heroCanvas=document.getElementById("heroCanvas");
+const dragHint=document.getElementById("dragHint");
+makeViewer(heroCanvas,"hero",0,{scale:.3,pt:1.1,spin:.0032,onInteract(){dragHint.style.opacity="0";}});
+
+/* mini viewers */
+document.querySelectorAll(".mini canvas").forEach(c=>{
+  makeViewer(c,c.dataset.geo,parseInt(c.dataset.hue,10),{scale:.3,pt:.85,spin:.005});
+});
+
+/* ── scroll progress ── */
+const bar=document.getElementById("progress");
+addEventListener("scroll",()=>{
+  const h=document.documentElement;
+  bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%";
+},{passive:true});
+
+/* ── reveal on scroll ── */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}
+}),{threshold:.12,rootMargin:"0px 0px -40px 0px"});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+
+/* ── stat count-up ── */
+const sio=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  sio.unobserve(e.target);
+  const el=e.target,end=+el.dataset.count,pre=el.dataset.prefix,suf=el.dataset.suffix;
+  if(REDUCED){el.textContent=pre+end+suf;return;}
+  const t0=performance.now(),dur=1400;
+  (function tick(now){
+    const p=Math.min(1,(now-t0)/dur),ease=1-Math.pow(1-p,3);
+    el.textContent=pre+Math.round(end*ease)+suf;
+    if(p<1)requestAnimationFrame(tick);
+  })(t0);
+}),{threshold:.5});
+document.querySelectorAll(".stat .n").forEach(el=>sio.observe(el));
+
+/* ── format card cursor glow ── */
+document.querySelectorAll(".format").forEach(card=>{
+  card.addEventListener("pointermove",e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty("--mx",(e.clientX-r.left)+"px");
+    card.style.setProperty("--my",(e.clientY-r.top)+"px");
+  });
+});
+
+/* ── copy embed snippet ── */
+const copyBtn=document.getElementById("copyBtn");
+copyBtn.addEventListener("click",()=>{
+  const code='<iframe src="https://viverse.com/your-experience" allow="xr-spatial-tracking" />';
+  (navigator.clipboard?navigator.clipboard.writeText(code):Promise.reject()).then(()=>{
+    copyBtn.textContent="Copied ✓";
+    setTimeout(()=>copyBtn.textContent="Copy",1800);
+  }).catch(()=>{copyBtn.textContent="Select & copy";});
+});
+})();
+</script>
+</body>
+</html>
