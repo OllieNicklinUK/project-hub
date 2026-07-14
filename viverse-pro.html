@@ -7,7 +7,7 @@
 <meta name="description" content="Host premium, branded 3D on VIVERSE Pro and embed it anywhere. Full-detail models, streaming on any device, live in about two weeks. Simple pricing — no quote required to start.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 /* ══════════════════════════════════════════════════
    VIVERSE PRO — v1
@@ -33,9 +33,9 @@
   --muted-2:#5C6478;
   --grad:linear-gradient(120deg,#4FD8F5 0%,#009DE7 40%,#7B4FD8 100%);
   --grad-warm:linear-gradient(120deg,#E1547F,#7B4FD8);
-  --font-d:'Space Grotesk',sans-serif;
-  --font-b:'Inter',sans-serif;
-  --font-m:'Roboto Mono',monospace;
+  --font-d:'Roboto',sans-serif;
+  --font-b:'Roboto',sans-serif;
+  --font-m:'Roboto',sans-serif;
   --ease:cubic-bezier(.22,1,.36,1);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -46,7 +46,9 @@ body{
   font-family:var(--font-b);font-size:16px;line-height:1.6;
   overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
-h1,h2,h3,h4{font-family:var(--font-d);font-weight:600;line-height:1.05;letter-spacing:-.02em}
+h1,h2,h3,h4{font-family:var(--font-d);font-weight:700;line-height:1.05;letter-spacing:-.02em}
+/* small labels & eyebrows: Roboto Medium for legibility at small sizes */
+.eyebrow,.sec-tag,.nav-logo .tier,.stage-chrome .url,.live-pill,.drag-hint,.pillar .num,.q-item .qm,.code-head .file,.copy-btn,.embed-note,.show-row .idx,.vs-label,.stats-src,.plan .p-annual,.extra h4 i,.foot-links,.mini .mini-label{font-weight:500}
 a{color:inherit;text-decoration:none}
 img{max-width:100%}
 button{font-family:inherit}
@@ -77,7 +79,7 @@ body::after{
 .nav-links a.btn-fill,.nav-links a.btn-fill:hover{color:#06060B}
 .btn{
   display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;
-  font-family:var(--font-d);font-weight:600;font-size:14px;letter-spacing:.02em;
+  font-family:var(--font-d);font-weight:500;font-size:14px;letter-spacing:.02em;
   padding:14px 30px;border-radius:100px;position:relative;overflow:hidden;
   transition:transform .35s var(--ease),box-shadow .35s var(--ease);will-change:transform;
 }
@@ -173,7 +175,7 @@ body::after{
   padding:18px 24px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;
   background:var(--bg-2);
 }
-.stage-caption b{font-family:var(--font-d);color:var(--v-cyan);font-weight:600;letter-spacing:.02em}
+.stage-caption b{font-family:var(--font-d);color:var(--v-cyan);font-weight:700;letter-spacing:.02em}
 .stage-caption span{color:var(--muted);font-size:14px}
 
 /* ── MARQUEE ── */
@@ -299,7 +301,7 @@ h2.sec-title .grad{background:var(--grad);-webkit-background-clip:text;backgroun
 }
 .show-row:hover{background:rgba(79,216,245,.03);padding-left:22px}
 .show-row .idx{font-family:var(--font-m);font-size:13px;color:var(--muted-2);letter-spacing:.1em}
-.show-row h3{font-size:clamp(22px,3vw,42px);font-weight:600;letter-spacing:-.02em;transition:color .3s}
+.show-row h3{font-size:clamp(22px,3vw,42px);font-weight:700;letter-spacing:-.02em;transition:color .3s}
 .show-row:hover h3{color:var(--v-cyan)}
 .show-row .desc{color:var(--muted);font-size:14px;max-width:36ch;text-align:right}
 .show-row .go{
@@ -321,7 +323,7 @@ h2.sec-title .grad{background:var(--grad);-webkit-background-clip:text;backgroun
   flex:0 0 26px;height:26px;border-radius:50%;background:rgba(79,216,245,.1);border:1px solid var(--line-bright);
   display:flex;align-items:center;justify-content:center;color:var(--v-cyan);font-size:12px;margin-top:2px;
 }
-.brand-item h4{font-size:16.5px;margin-bottom:5px;font-weight:600}
+.brand-item h4{font-size:16.5px;margin-bottom:5px;font-weight:500}
 .brand-item p{color:var(--muted);font-size:14px}
 
 /* ── HOW IT WORKS ── */
@@ -391,7 +393,7 @@ h2.sec-title .grad{background:var(--grad);-webkit-background-clip:text;backgroun
   font-family:var(--font-m);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
   background:var(--grad);color:#06060B;font-weight:700;padding:6px 16px;border-radius:100px;white-space:nowrap;
 }
-.plan .p-name{font-family:var(--font-d);font-size:19px;font-weight:600}
+.plan .p-name{font-family:var(--font-d);font-size:19px;font-weight:500}
 .plan .p-for{color:var(--muted-2);font-size:13px;margin-top:6px}
 .plan .p-price{margin:26px 0 4px;display:flex;align-items:baseline;gap:8px}
 .plan .p-price .amt{font-family:var(--font-d);font-size:clamp(38px,3.6vw,52px);font-weight:700;letter-spacing:-.03em}
@@ -402,7 +404,7 @@ h2.sec-title .grad{background:var(--grad);-webkit-background-clip:text;backgroun
 .plan li::before{content:"✓";color:var(--v-cyan);font-size:12px}
 .plan li.no{opacity:.38}
 .plan li.no::before{content:"—";color:var(--muted-2)}
-.plan li b{color:var(--text);font-weight:600}
+.plan li b{color:var(--text);font-weight:700}
 .plan .btn{justify-content:center}
 .pricing-extras{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .extra{border:1px solid var(--line);border-radius:16px;padding:24px 28px;background:var(--bg-2)}
